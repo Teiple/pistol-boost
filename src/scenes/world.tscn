@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cwiw1n3tyvfvk"]
+
+[ext_resource type="PackedScene" uid="uid://c4jqgb5pkn5wg" path="res://src/scenes/player.tscn" id="1_w561s"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4g8uc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4g8uc"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w561s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w561s"]
+albedo_color = Color(0.306079, 0.49426842, 0.7125409, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_p8qt8"]
+
+[node name="World" type="Node" unique_id=481484732]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=280389748]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=274184477]
+shape = SubResource("WorldBoundaryShape3D_4g8uc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1683527351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_4g8uc")
+
+[node name="Box1" type="StaticBody3D" parent="." unique_id=1699055025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box1" unique_id=565179991]
+shape = SubResource("BoxShape3D_w561s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box1" unique_id=46112781]
+material_override = SubResource("StandardMaterial3D_w561s")
+mesh = SubResource("BoxMesh_p8qt8")
+
+[node name="Box2" type="StaticBody3D" parent="." unique_id=1231307889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2" unique_id=1116479704]
+shape = SubResource("BoxShape3D_w561s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box2" unique_id=1421107956]
+material_override = SubResource("StandardMaterial3D_w561s")
+mesh = SubResource("BoxMesh_p8qt8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=145311268]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 3, 2.5, 0)
+
+[node name="Player" parent="." unique_id=676303293 instance=ExtResource("1_w561s")]

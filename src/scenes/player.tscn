@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c4jqgb5pkn5wg"]
+
+[ext_resource type="PackedScene" uid="uid://wipfemci7pmi" path="res://assets/models/pistol.glb" id="1_b8b5d"]
+[ext_resource type="Script" uid="uid://b27a2ykkwout" path="res://src/scripts/player.gd" id="1_jvoiy"]
+[ext_resource type="Material" uid="uid://c88dn6lkbxh8s" path="res://src/resources/materials/player_pistol.tres" id="2_yw0t6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yw0t6"]
+size = Vector3(0.036132813, 0.08276367, 0.22387695)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jvoiy"]
+size = Vector3(0.036132813, 0.08276367, 0.14422607)
+
+[node name="Player" type="RigidBody3D" unique_id=676303293]
+collision_layer = 2
+axis_lock_linear_z = true
+script = ExtResource("1_jvoiy")
+
+[node name="pistol" parent="." unique_id=26733741 instance=ExtResource("1_b8b5d")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Skeleton3D" parent="pistol/pistol_rig_with_animation" parent_id_path=PackedInt32Array(26733741, 1016031370) index="0" unique_id=1853897500]
+bones/2/position = Vector3(2.801365e-09, -0.13052309, -0.04406535)
+bones/2/rotation = Quaternion(0.107179984, -7.260937e-10, 6.7354775e-09, 0.9942396)
+
+[node name="pistol_mesh_with_animation" parent="pistol/pistol_rig_with_animation/Skeleton3D" index="0" unique_id=557454579]
+material_override = ExtResource("2_yw0t6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2132150891]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.022813175, 0.030151365, 0.010062313)
+shape = SubResource("BoxShape3D_yw0t6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1456366314]
+transform = Transform3D(-4.371139e-08, -0.9892085, -0.1465147, 0, 0.14651468, -0.98920846, 0.99999994, -4.3239673e-08, -6.40436e-09, -0.044430587, -0.044439122, 0.010062309)
+shape = SubResource("BoxShape3D_jvoiy")
+
+[node name="FollowCam" type="Camera3D" parent="." unique_id=132913715]
+transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0.5, 2)
+
+[node name="RecoilImpulsePoint" type="Node3D" parent="." unique_id=1182736180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.036, 0)
+
+[editable path="pistol"]
