@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cj5lvihr24xug"]
+
+[ext_resource type="Script" uid="uid://c7cuv1sa6l7r4" path="res://src/scripts/modules/pooled_node_module.gd" id="1_8auqv"]
+
+[node name="PooledNodeModule" type="Node3D" unique_id=1538853439]
+script = ExtResource("1_8auqv")

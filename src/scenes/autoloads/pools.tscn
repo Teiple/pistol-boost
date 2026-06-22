@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bmlruf2hfsnvj"]
+
+[ext_resource type="Script" uid="uid://mvy1hcom8jpd" path="res://src/scripts/autoloads/pools.gd" id="1_sckp8"]
+
+[node name="Pools" type="Node" unique_id=1054753579]
+script = ExtResource("1_sckp8")

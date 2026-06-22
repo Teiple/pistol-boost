@@ -14,8 +14,6 @@ func _ready() -> void:
 	var last_idx := get_tree().root.get_child_count() - 1
 	_current_scene = get_tree().root.get_child(last_idx)
 
-	print_debug(_current_scene.name)
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -29,9 +27,9 @@ func current_scene() -> Node:
 	return _current_scene
 
 
-func add_node_to_current_scene(node: Node) -> void:
+func add_node_to_current_scene(node: Node, force_readable_name: bool = false) -> void:
 	Assert.not_null(_current_scene, "Current scene was not initialized yet")
-	return _current_scene.add_child(node)
+	return _current_scene.add_child(node, force_readable_name)
 
 
 func get_player() -> Player:

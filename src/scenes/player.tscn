@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://wipfemci7pmi" path="res://assets/models/pistol.glb" id="1_b8b5d"]
 [ext_resource type="Script" uid="uid://b27a2ykkwout" path="res://src/scripts/player.gd" id="1_jvoiy"]
-[ext_resource type="Material" uid="uid://c88dn6lkbxh8s" path="res://src/resources/materials/player_pistol.tres" id="2_yw0t6"]
+[ext_resource type="Material" uid="uid://c88dn6lkbxh8s" path="res://src/resources/materials/player.tres" id="2_yw0t6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yw0t6"]
 size = Vector3(0.036132813, 0.08276367, 0.22387695)
@@ -38,5 +38,8 @@ transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.996
 
 [node name="RecoilImpulsePoint" type="Node3D" parent="." unique_id=1182736180]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.036, 0)
+
+[node name="MuzzlePoint" type="Marker3D" parent="." unique_id=314187361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1492123, 0.041447878, 0)
 
 [editable path="pistol"]

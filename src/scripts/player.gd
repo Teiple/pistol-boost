@@ -1,8 +1,11 @@
 class_name Player
 extends RigidBody3D
 
+@export_flags_3d_physics var _collision_mask: int = 1
+
 var _initial_cam_offset: Vector3 = Vector3.ZERO
 
+@onready var _muzzle_point: Marker3D = $MuzzlePoint
 @onready var _follow_cam: Camera3D = $FollowCam
 @onready var _recoil_impulse_point: Node3D = $RecoilImpulsePoint
 
@@ -14,8 +17,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("primary_fire"):
+		_fire_primary()
 		apply_impulse(-global_basis.x * 2, _recoil_impulse_point.global_position - global_position)
 	elif Input.is_action_just_pressed("secondary_fire"):
+		_fire_secondary()
 		apply_impulse(-global_basis.x * 5, _recoil_impulse_point.global_position - global_position)
 	var player_plane_pos := global_position * Vector3(1, 1, 0)
 
@@ -36,7 +41,7 @@ func _process(_delta: float) -> void:
 		z_axis = Vector3.FORWARD
 	var x_axis: = look_direction
 	var y_axis := z_axis.cross(x_axis).normalized()
-	var target_basis = Basis(x_axis, y_axis, z_axis)
+	var target_basis := Basis(x_axis, y_axis, z_axis)
 
 	var current_quat = global_basis.get_rotation_quaternion()
 	var target_quat = Quaternion(target_basis)
@@ -46,3 +51,19 @@ func _process(_delta: float) -> void:
 		angular_velocity = target_angular_veloc * 10.0
 	else:
 		angular_velocity = target_angular_veloc * 30.0
+
+
+func _fire_primary():
+	var projectile := Pools.projectile_scene_collection["plasma_1"].get_instance() as Projectile
+	var atk_origin := Attack.Origin.new()
+
+	atk_origin.fired_from = _muzzle_point.global_position
+	atk_origin.bullet_id = "plasma_1"
+	atk_origin.direction = _muzzle_point.global_basis.x
+	atk_origin.collision_mask = _collision_mask
+
+	projectile.init(atk_origin)
+
+
+func _fire_secondary():
+	pass

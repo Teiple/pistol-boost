@@ -11,5 +11,8 @@
         "**/Thumbs.db": true,
         "**/*.uid": true,
         "**/*.import": true,
-    }
+    },
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 6,
+    "workbench.editor.limit.excludeDirty": true,
 }

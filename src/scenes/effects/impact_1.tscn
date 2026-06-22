@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://b8a3ocjwlbql2"]
+
+[ext_resource type="Script" uid="uid://cklcbgda44ntv" path="res://src/scripts/effects/impact_effect.gd" id="1_qxtj5"]
+[ext_resource type="Material" uid="uid://05lkxgmafg3e" path="res://src/resources/materials/effect_1.tres" id="1_rs8cx"]
+[ext_resource type="PackedScene" uid="uid://cj5lvihr24xug" path="res://src/scenes/modules/pooled_node_module.tscn" id="3_nsdr5"]
+
+[sub_resource type="Curve" id="Curve_rs8cx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.2852771, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qxtj5"]
+curve = SubResource("Curve_rs8cx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nsdr5"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_qxtj5")
+color = Color(1, 1, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rs8cx"]
+size = Vector2(0.1, 0.1)
+
+[node name="Impact1" type="Node3D" unique_id=1454982942 node_paths=PackedStringArray("_impact_effects")]
+script = ExtResource("1_qxtj5")
+_impact_effects = [NodePath("Particles")]
+
+[node name="Particles" type="GPUParticles3D" parent="." unique_id=84849421]
+material_override = ExtResource("1_rs8cx")
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.5
+visibility_aabb = AABB(-100, -100, -100, 200, 200, 200)
+process_material = SubResource("ParticleProcessMaterial_nsdr5")
+draw_pass_1 = SubResource("QuadMesh_rs8cx")
+
+[node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("3_nsdr5")]
