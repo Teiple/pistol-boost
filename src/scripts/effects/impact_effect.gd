@@ -6,7 +6,13 @@ extends Node3D
 @onready var pooled_node_module: PooledNodeModule = $PooledNodeModule
 
 
-func play() -> void:
+func play_at(pos: Vector3, up_dir: Vector3) -> void:
+	Orientation.lookat_direction(self, up_dir, Vector3.UP)
+	global_position = pos
+	_play()
+
+
+func _play() -> void:
 	var duration := 0.0
 	for impact in _impact_effects:
 		if impact is CPUParticles3D:
@@ -24,8 +30,3 @@ func play() -> void:
 	await get_tree().create_timer(duration, false).timeout
 
 	pooled_node_module.return_to_pool()
-
-
-func init(pos: Vector3, up_dir: Vector3) -> void:
-	Orientation.lookat_direction(self, up_dir, Vector3.UP)
-	global_position = pos

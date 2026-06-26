@@ -4,8 +4,6 @@ extends Resource
 
 @export var _capacity: int = 10
 @export var _scene: PackedScene = null
-@export var _preinstantiate: bool = false
-@export var _force_readable_names: bool = true
 
 var _pool: Array[Node] = []
 var _active_instances: Array[Node] = []
@@ -15,8 +13,9 @@ func _init(capacity := _capacity, scene := _scene) -> void:
 	_capacity = capacity
 	_scene = scene
 
-	if _preinstantiate:
-		_preinit()
+
+func get_resource_path_to_scene() -> String:
+	return _scene.resource_path.get_basename().trim_prefix("res://") if _scene != null else ""
 
 
 @abstract func _on_create(_instance: Node) -> void
@@ -61,16 +60,12 @@ func get_instance() -> Node:
 
 		Assert.not_null(created, "Instance received should not be null")
 		Assert.check(created is Node, "Instance received should be of type Node")
-
-		var pooled_node: Node = created
-		var pooled_mod := PooledNodeModule.find_on(pooled_node)
-		if pooled_mod != null:
-			pooled_mod.set_parent_pool(self)
-
 		instance = created
 	else:
 		instance = _pool.pop_back()
 		Assert.not_null(instance, "Instance from pool should not be null")
+
+	_setup_pooled_node_module(instance)
 
 	if instance.get_parent() != Global.current_scene():
 		instance.reparent(Global.current_scene())
@@ -108,16 +103,13 @@ func clear() -> void:
 	_pool.clear()
 
 
-func _create_func() -> Node:
+func preinit() -> void:
 	Assert.not_null(_scene, "Pool scene should not be null")
-	var created: Node = _scene.instantiate()
-	Global.add_node_to_current_scene(created, _force_readable_names)
-	_on_create(created)
-	return created
 
+	# It's possible for pool to has preinit somewhere else during the first frame
+	if !_pool.is_empty():
+		return
 
-func _preinit() -> void:
-	Assert.not_null(_scene, "Pool scene should not be null")
 	_pool.resize(_capacity)
 	for i in _capacity:
 		var created: Node = _scene.instantiate()
@@ -125,9 +117,25 @@ func _preinit() -> void:
 		Global.add_node_to_current_scene(created)
 		_on_create(created)
 
-		var pooled_mod := PooledNodeModule.find_on(created)
-		if pooled_mod != null:
-			pooled_mod.set_parent_pool(self)
-
 		var instance: Node = created
 		_pool[i] = instance
+
+
+func _ensure_instance_type(instance: Node) -> Node:
+	var t_instance := instance as Node
+	Assert.not_null(instance, "Instance to release should not be null")
+	return t_instance
+
+
+func _create_func() -> Node:
+	Assert.not_null(_scene, "Pool scene should not be null")
+	var created: Node = _scene.instantiate()
+	Global.add_node_to_current_scene(created, false)
+	_on_create(created)
+	return created
+
+
+func _setup_pooled_node_module(instance: Node) -> void:
+	var pooled_mod := PooledNodeModule.find_on(instance)
+	if pooled_mod != null:
+		pooled_mod.set_parent_pool(self)

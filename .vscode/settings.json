@@ -1,18 +1,18 @@
 {
-    "godotTools.editorPath.godot4": "/home/hongphuc/Personal/godot/Godot_v4.6-stable_linux.x86_64",
-    "editor.formatOnSave": true,
-    "godotFormatter.safe": false,
-    "godotFormatter.reorderCode": true,
-    "files.exclude": {
-        // "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/.DS_Store": true,
-        "**/Thumbs.db": true,
-        "**/*.uid": true,
-        "**/*.import": true,
-    },
-    "workbench.editor.limit.enabled": true,
-    "workbench.editor.limit.value": 6,
-    "workbench.editor.limit.excludeDirty": true,
+  "godotTools.editorPath.godot4": "/home/hongphuc/Personal/godot/Godot_v4.6-stable_linux.x86_64",
+  "editor.formatOnSave": true,
+  "godotFormatter.safe": false,
+  "godotFormatter.reorderCode": true,
+  "files.exclude": {
+    // "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/*.uid": true,
+    "**/*.import": true
+  },
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 6,
+  "workbench.editor.limit.excludeDirty": true
 }

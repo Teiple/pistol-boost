@@ -4,6 +4,14 @@ class_name Assert
 const MSG_FMT := "%s :: %s"
 
 
+static func error(context := "") -> void:
+	push_error(context)
+	assert(
+		false,
+		MSG_FMT % [context, "Error"],
+	)
+
+
 static func not_null(value: Variant, context := "") -> void:
 	assert(
 		value != null,
@@ -101,6 +109,16 @@ static func non_empty_array(array: Array, context := "") -> void:
 		MSG_FMT % [
 			context,
 			"This array should not be empty",
+		],
+	)
+
+
+static func empty_array(array: Array, context := "") -> void:
+	assert(
+		array.size() == 0,
+		MSG_FMT % [
+			context,
+			"This array should be empty",
 		],
 	)
 

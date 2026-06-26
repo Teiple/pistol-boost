@@ -7,9 +7,14 @@ func get_instance() -> Node3D:
 	return super.get_instance() as Node3D
 
 
-func _on_create(instance: Node) -> void:
-	Assert.check(instance is Node3D, "Instance should be of type Node3D")
+func _ensure_instance_type(instance: Node) -> Node3D:
 	var t_instance := instance as Node3D
+	Assert.check(instance is Node3D, "Instance should be of type Node3D")
+	return t_instance
+
+
+func _on_create(instance: Node) -> void:
+	var t_instance := _ensure_instance_type(instance)
 	t_instance.visible = false
 
 	t_instance.set_process(false)
@@ -22,8 +27,7 @@ func _on_destroy(_instance: Node) -> void:
 
 
 func _on_get(instance: Node) -> void:
-	Assert.check(instance is Node3D, "Instance should be of type Node3D")
-	var t_instance := instance as Node3D
+	var t_instance := _ensure_instance_type(instance)
 	t_instance.visible = true
 
 	t_instance.set_process(true)
@@ -32,8 +36,7 @@ func _on_get(instance: Node) -> void:
 
 
 func _on_release(instance: Node) -> void:
-	Assert.check(instance is Node3D, "Instance should be of type Node3D")
-	var t_instance := instance as Node3D
+	var t_instance := _ensure_instance_type(instance)
 	t_instance.visible = false
 
 	t_instance.set_process(false)

@@ -2,12 +2,12 @@ class_name PoolGroup
 
 enum Type {
 	PROJECTILE,
-	IMPACT,
+	IMPACT_EFFECT,
 	HITSCAN_TRAIL,
 }
 
 const NAMES: Dictionary[int, String] = {
 	Type.PROJECTILE: "projectile",
-	Type.IMPACT: "impact",
+	Type.IMPACT_EFFECT: "impact_fx",
 	Type.HITSCAN_TRAIL: "hitscan_trail",
 }

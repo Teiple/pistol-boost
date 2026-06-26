@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="IdPackedScene" format=3 uid="uid://bo4echcy4uumw"]
+
+[ext_resource type="PackedScene" uid="uid://b8a3ocjwlbql2" path="res://src/scenes/effects/impact_1.tscn" id="1_r2tb6"]
+[ext_resource type="Script" uid="uid://daqfx3a55356b" path="res://src/scripts/resources/id_packed_scene.gd" id="2_gibeq"]
+
+[resource]
+script = ExtResource("2_gibeq")
+scene = ExtResource("1_r2tb6")

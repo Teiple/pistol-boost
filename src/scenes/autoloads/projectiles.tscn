@@ -3,19 +3,21 @@
 [ext_resource type="Script" uid="uid://il7sqnyq5y8u" path="res://src/scripts/autoloads/projectiles.gd" id="1_otccx"]
 [ext_resource type="Script" uid="uid://be8ofj5hhbeom" path="res://src/scripts/resources/projectile_bullet_config.gd" id="2_rssl5"]
 [ext_resource type="PackedScene" uid="uid://c4pi1a5s76pys" path="res://src/scenes/weapons/projectiles/projectile_1.tscn" id="3_r6ip8"]
-[ext_resource type="PackedScene" uid="uid://b8a3ocjwlbql2" path="res://src/scenes/effects/impact_1.tscn" id="3_t5vnu"]
+[ext_resource type="Resource" uid="uid://bo4echcy4uumw" path="res://src/resources/impact_fx/impact_1.tres" id="3_t5vnu"]
 
 [sub_resource type="Resource" id="Resource_t5vnu"]
 script = ExtResource("2_rssl5")
 projectile_scene = ExtResource("3_r6ip8")
-impact_effect_scene = ExtResource("3_t5vnu")
+projectile_speed = 30.0
+impact_fx = ExtResource("3_t5vnu")
 metadata/_custom_type_script = "uid://be8ofj5hhbeom"
 
 [sub_resource type="Resource" id="Resource_r6ip8"]
 script = ExtResource("2_rssl5")
 projectile_scene = ExtResource("3_r6ip8")
+projectile_speed = 30.0
 bullet_id = "plasma_2"
-impact_effect_scene = ExtResource("3_t5vnu")
+impact_fx = ExtResource("3_t5vnu")
 metadata/_custom_type_script = "uid://be8ofj5hhbeom"
 
 [node name="Projectiles" type="Node" unique_id=1054753579]

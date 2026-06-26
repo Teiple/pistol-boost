@@ -50,3 +50,4 @@ mesh = SubResource("BoxMesh_p8qt8")
 transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 3, 2.5, 0)
 
 [node name="Player" parent="." unique_id=676303293 instance=ExtResource("1_w561s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3773023, 0)

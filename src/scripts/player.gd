@@ -19,7 +19,6 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("primary_fire"):
 		_fire_primary()
 	elif Input.is_action_just_pressed("secondary_fire"):
-		print_debug("hi")
 		_fire_secondary()
 	var player_plane_pos := global_position * Vector3(1, 1, 0)
 
@@ -53,39 +52,38 @@ func _process(_delta: float) -> void:
 
 
 func _fire_primary():
-	var projectile := Pools.get_instance(
-		PoolGroup.Type.PROJECTILE,
-		"plasma_1",
-	) as Projectile
-	Assert.not_null(projectile, "Projectile pool should return a Projectile")
+	var projectile := Projectiles.get_projectile("plasma_1") as Projectile
 
 	var atk_origin := Attack.Origin.new()
 
 	atk_origin.fired_from = _muzzle_point.global_position
 	atk_origin.bullet_id = "plasma_1"
-	atk_origin.direction = _muzzle_point.global_basis.x
+	# Reduce z dimension
+	atk_origin.direction = (_muzzle_point.global_basis.x * Vector3(1, 1, 0)).normalized()
 	atk_origin.collision_mask = _collision_mask
 
-	projectile.init(atk_origin)
+	projectile.launch(atk_origin)
 
 	apply_impulse(-global_basis.x * 2, _recoil_impulse_point.global_position - global_position)
 
 
 func _fire_secondary():
-	print_debug("firing sec")
-	var projectile := Pools.get_instance(
-		PoolGroup.Type.PROJECTILE,
-		"plasma_2",
-	) as Projectile
-	Assert.not_null(projectile, "Projectile pool should return a Projectile")
+	for i in 4:
+		var projectile := Projectiles.get_projectile("plasma_2") as Projectile
 
-	var atk_origin := Attack.Origin.new()
+		var atk_origin := Attack.Origin.new()
 
-	atk_origin.fired_from = _muzzle_point.global_position
-	atk_origin.bullet_id = "plasma_2"
-	atk_origin.direction = _muzzle_point.global_basis.x
-	atk_origin.collision_mask = _collision_mask
+		atk_origin.fired_from = _muzzle_point.global_position
+		atk_origin.bullet_id = "plasma_2"
 
-	projectile.init(atk_origin)
+		# Reduce z dimension
+		atk_origin.collision_mask = _collision_mask
+		var direction = (_muzzle_point.global_basis.x * Vector3(1, 1, 0)).normalized()
+		atk_origin.direction = direction.rotated(
+			Vector3.FORWARD,
+			deg_to_rad(randf_range(-10, 10)),
+		)
+
+		projectile.launch(atk_origin)
 
 	apply_impulse(-global_basis.x * 5, _recoil_impulse_point.global_position - global_position)

@@ -11,7 +11,6 @@ var _direction: Vector3 = Vector3.ZERO
 var _traveled_distance: float = 0.0
 var _origin_position: Vector3 = Vector3.ZERO
 var _impact_force: float = 0.0
-var _bullet_id: String = ""
 
 @onready var _raycast: RayCast3D = $RayCast3D
 @onready var _pooled_module: PooledNodeModule = $PooledNodeModule
@@ -26,15 +25,19 @@ func _physics_process(delta: float) -> void:
 	_traveled_distance += _speed * delta
 
 
-func init(atk_origin: Attack.Origin) -> void:
+func init(config: ProjectileBulletConfig) -> void:
+	super.init(config)
+	_check_cover_length()
+
+
+func launch(atk_origin: Attack.Origin) -> void:
 	global_position = atk_origin.fired_from
 
 	_direction = atk_origin.direction
 	_traveled_distance = 0.0
 	_origin_position = atk_origin.fired_from
 	_impact_force = atk_origin.impact_force
-	_bullet_id = atk_origin.bullet_id
-	Assert.non_empty_string(_bullet_id, "Projectile bullet id")
+	Assert.non_empty_string(atk_origin.bullet_id, "Projectile bullet id")
 
 	# Set up for raycast
 	_raycast.position = Vector3.ZERO
@@ -52,6 +55,24 @@ func init(atk_origin: Attack.Origin) -> void:
 		_pooled_module.return_to_pool()
 
 
+func _check_cover_length() -> void:
+	var travel_per_tick := _speed / Engine.physics_ticks_per_second
+	if travel_per_tick <= _length:
+		return
+
+	var max_safe_speed := _length * Engine.physics_ticks_per_second
+	var min_safe_length := _speed / Engine.physics_ticks_per_second
+	Assert.error(
+		"%s :: Projectile can clip. " % name +
+		"Current speed is %.3f, " % _speed +
+		"but the max safe speed for cover length %.3f is %.3f. " % [_length, max_safe_speed] +
+		"Either lower the speed to %.3f or increase cover length to %.3f" % [
+			max_safe_speed,
+			min_safe_length,
+		],
+	)
+
+
 func _check_and_collide() -> bool:
 	_raycast.force_raycast_update()
 	if !_raycast.is_colliding():
@@ -66,12 +87,9 @@ func _check_and_collide() -> bool:
 	atk_result.impact_force = _impact_force
 
 	var impact_effect := Pools.get_instance(
-		PoolGroup.Type.IMPACT,
-		_bullet_id,
+		PoolGroup.Type.IMPACT_EFFECT,
+		_impact_id,
 	) as ImpactEffect
 	Assert.not_null(impact_effect, "Impact pool should return an ImpactEffect")
-
-	impact_effect.init(atk_result.hit_point, atk_result.hit_normal)
-	impact_effect.play()
-
+	impact_effect.play_at(atk_result.hit_point, atk_result.hit_normal)
 	return true

@@ -1,6 +1,8 @@
 class_name PoolsAutoload
 extends Node
 
+const DEFAULT_ID := "_"
+
 # Runtime pools
 var _runtime_pools: Dictionary[String, Pool] = { }
 
@@ -9,11 +11,10 @@ func register_pool(group: int, id: String, pool: Pool) -> void:
 	Assert.not_null(pool, "Pool to register should not be null")
 	var key := pool_key(group, id)
 
-	Assert.dict_not_contains(
-		_runtime_pools,
-		key,
-		"Trying to register a pool with a key that already exists",
-	)
+	if key in _runtime_pools:
+		return
+
+	pool.preinit()
 	_runtime_pools[key] = pool
 
 
