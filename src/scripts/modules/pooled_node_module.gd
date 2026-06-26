@@ -21,9 +21,7 @@ func get_pooled_node() -> Node:
 
 
 func return_to_pool() -> void:
-	if parent_pool == null:
-		parent_pool = Pools.scene_path_to_pool_lookup[module_owner().scene_file_path]
 	if parent_pool != null:
-		parent_pool.release.call(module_owner())
+		parent_pool.release(module_owner())
 	else:
 		Assert.unreachable("No pool was setup for \"%s\"" % module_owner().scene_file_path)

@@ -73,6 +73,7 @@ func _load_scene(packed_scene: PackedScene) -> void:
 	Assert.not_null(packed_scene, "Scene to load should not be null")
 	# Unload current scene
 	if _current_scene != null:
+		Pools.clear_runtime_pools()
 		_current_scene.queue_free()
 
 	var scene := packed_scene.instantiate()

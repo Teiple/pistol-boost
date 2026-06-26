@@ -11,6 +11,7 @@ var _direction: Vector3 = Vector3.ZERO
 var _traveled_distance: float = 0.0
 var _origin_position: Vector3 = Vector3.ZERO
 var _impact_force: float = 0.0
+var _bullet_id: String = ""
 
 @onready var _raycast: RayCast3D = $RayCast3D
 @onready var _pooled_module: PooledNodeModule = $PooledNodeModule
@@ -32,6 +33,8 @@ func init(atk_origin: Attack.Origin) -> void:
 	_traveled_distance = 0.0
 	_origin_position = atk_origin.fired_from
 	_impact_force = atk_origin.impact_force
+	_bullet_id = atk_origin.bullet_id
+	Assert.non_empty_string(_bullet_id, "Projectile bullet id")
 
 	# Set up for raycast
 	_raycast.position = Vector3.ZERO
@@ -45,8 +48,8 @@ func init(atk_origin: Attack.Origin) -> void:
 	_mesh_pivot.scale.z = randf_range(_scale_z_multiplier_min, _scale_z_multiplier_max)
 
 	## Initial check
-	#if _check_and_collide():
-	#_pooled_module.return_to_pool()
+	if _check_and_collide():
+		_pooled_module.return_to_pool()
 
 
 func _check_and_collide() -> bool:
@@ -62,10 +65,13 @@ func _check_and_collide() -> bool:
 	atk_result.hit_direction = _direction
 	atk_result.impact_force = _impact_force
 
-	var impact_effect := Pools.bullet_impact_scene_collection["plasma_1"].get_instance() as ImpactEffect
+	var impact_effect := Pools.get_instance(
+		PoolGroup.Type.IMPACT,
+		_bullet_id,
+	) as ImpactEffect
+	Assert.not_null(impact_effect, "Impact pool should return an ImpactEffect")
+
 	impact_effect.init(atk_result.hit_point, atk_result.hit_normal)
 	impact_effect.play()
-	print_debug("impac:", impact_effect, atk_result.hit_point, impact_effect.visible, impact_effect.process_mode)
-	print_debug("hit", FrameTime.process_time())
 
 	return true

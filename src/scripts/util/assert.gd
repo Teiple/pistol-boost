@@ -135,22 +135,22 @@ static func array_not_contains(array: Array, val: Variant, context := "") -> voi
 	)
 
 
-static func dict_not_contains(dict: Dictionary, val: Variant, context := "") -> void:
+static func dict_not_contains(dict: Dictionary, key: Variant, context := "") -> void:
 	assert(
-		val not in dict,
+		key not in dict,
 		MSG_FMT % [
 			context,
-			"Dictionary already contains value %s" % val,
+			"Dictionary already contains key %s" % key,
 		],
 	)
 
 
-static func dict_contains(dict: Dictionary, val: Variant, context := "") -> void:
+static func dict_contains(dict: Dictionary, key: Variant, context := "") -> void:
 	assert(
-		val in dict,
+		key in dict,
 		MSG_FMT % [
 			context,
-			"Dictionary doesn't contains value %s" % val,
+			"Dictionary doesn't contain key %s" % key,
 		],
 	)
 

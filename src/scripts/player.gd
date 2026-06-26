@@ -18,10 +18,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("primary_fire"):
 		_fire_primary()
-		apply_impulse(-global_basis.x * 2, _recoil_impulse_point.global_position - global_position)
 	elif Input.is_action_just_pressed("secondary_fire"):
+		print_debug("hi")
 		_fire_secondary()
-		apply_impulse(-global_basis.x * 5, _recoil_impulse_point.global_position - global_position)
 	var player_plane_pos := global_position * Vector3(1, 1, 0)
 
 	_follow_cam.global_position = global_position + _initial_cam_offset
@@ -54,7 +53,12 @@ func _process(_delta: float) -> void:
 
 
 func _fire_primary():
-	var projectile := Pools.projectile_scene_collection["plasma_1"].get_instance() as Projectile
+	var projectile := Pools.get_instance(
+		PoolGroup.Type.PROJECTILE,
+		"plasma_1",
+	) as Projectile
+	Assert.not_null(projectile, "Projectile pool should return a Projectile")
+
 	var atk_origin := Attack.Origin.new()
 
 	atk_origin.fired_from = _muzzle_point.global_position
@@ -64,6 +68,24 @@ func _fire_primary():
 
 	projectile.init(atk_origin)
 
+	apply_impulse(-global_basis.x * 2, _recoil_impulse_point.global_position - global_position)
+
 
 func _fire_secondary():
-	pass
+	print_debug("firing sec")
+	var projectile := Pools.get_instance(
+		PoolGroup.Type.PROJECTILE,
+		"plasma_2",
+	) as Projectile
+	Assert.not_null(projectile, "Projectile pool should return a Projectile")
+
+	var atk_origin := Attack.Origin.new()
+
+	atk_origin.fired_from = _muzzle_point.global_position
+	atk_origin.bullet_id = "plasma_2"
+	atk_origin.direction = _muzzle_point.global_basis.x
+	atk_origin.collision_mask = _collision_mask
+
+	projectile.init(atk_origin)
+
+	apply_impulse(-global_basis.x * 5, _recoil_impulse_point.global_position - global_position)

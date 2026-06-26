@@ -11,6 +11,13 @@ projectile_scene = ExtResource("3_r6ip8")
 impact_effect_scene = ExtResource("3_t5vnu")
 metadata/_custom_type_script = "uid://be8ofj5hhbeom"
 
+[sub_resource type="Resource" id="Resource_r6ip8"]
+script = ExtResource("2_rssl5")
+projectile_scene = ExtResource("3_r6ip8")
+bullet_id = "plasma_2"
+impact_effect_scene = ExtResource("3_t5vnu")
+metadata/_custom_type_script = "uid://be8ofj5hhbeom"
+
 [node name="Projectiles" type="Node" unique_id=1054753579]
 script = ExtResource("1_otccx")
-_configs = Array[ExtResource("2_rssl5")]([SubResource("Resource_t5vnu")])
+_configs = Array[ExtResource("2_rssl5")]([SubResource("Resource_t5vnu"), SubResource("Resource_r6ip8")])
