@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ProjectileBulletConfig" format=3 uid="uid://jutbdrmng4xc"]
+
+[ext_resource type="Resource" uid="uid://bo4echcy4uumw" path="res://src/resources/impact_fx/impact_1.tres" id="1_mk5cs"]
+[ext_resource type="PackedScene" uid="uid://c4pi1a5s76pys" path="res://src/scenes/weapons/projectiles/projectile_1.tscn" id="2_r4orq"]
+[ext_resource type="Script" uid="uid://be8ofj5hhbeom" path="res://src/scripts/resources/projectile_bullet_config.gd" id="3_3wgnm"]
+
+[resource]
+script = ExtResource("3_3wgnm")
+projectile_scene = ExtResource("2_r4orq")
+projectile_speed = 30.0
+impact_fx = ExtResource("1_mk5cs")
+metadata/_custom_type_script = "uid://be8ofj5hhbeom"

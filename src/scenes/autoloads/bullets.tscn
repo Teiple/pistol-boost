@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dkan3f3d8kwqw"]
+
+[ext_resource type="Script" uid="uid://dkwmkdv1mecly" path="res://src/scripts/autoloads/bullets.gd" id="1_l01qw"]
+
+[node name="Bullets" type="Node" unique_id=1000218288]
+script = ExtResource("1_l01qw")

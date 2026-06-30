@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 FrameTime="*uid://bkaaevxl3muql"
 Global="*uid://dooml43x1offt"
 Pools="*uid://bmlruf2hfsnvj"
-Projectiles="*uid://dn82jpnemh148"
+Bullets="*uid://dkan3f3d8kwqw"
 
 [debug]
 

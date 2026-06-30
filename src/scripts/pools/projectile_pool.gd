@@ -4,6 +4,18 @@ extends SpatialPool
 var _bullet_config: ProjectileBulletConfig
 
 
+static func create(
+		capacity: int,
+		config: ProjectileBulletConfig,
+) -> ProjectilePool:
+	var projectile = ProjectilePool.new(
+		capacity,
+		config.bullet.scene,
+	)
+	projectile.set_bullet_config(config)
+	return projectile
+
+
 func set_bullet_config(config: ProjectileBulletConfig) -> void:
 	_bullet_config = config
 

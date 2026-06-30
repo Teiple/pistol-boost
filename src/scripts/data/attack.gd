@@ -10,19 +10,9 @@ enum ProjectileModel {
 	PROJECTILE = 1,
 }
 
-class BulletSpawnContext:
-	var attacker: CharacterBody3D = null
-	var fired_from: Vector3 = Vector3.ZERO
-	var muzzle_position: Vector3 = Vector3.ZERO
-	var base_direction: Vector3 = Vector3.ZERO
-	var spread_angle_degrees: float = 0.0
-
-
 class Origin:
-	var attacker: CharacterBody3D = null
 	var damage: float = 10.0
 	var damage_type: DamageType = DamageType.BULLET
-	var bullet_id: String = ""
 	var direction: Vector3 = Vector3.ZERO
 	var fired_from: Vector3 = Vector3.ZERO
 	var impact_force: float = 0.0

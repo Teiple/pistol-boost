@@ -1,8 +1,6 @@
 class_name Player
 extends RigidBody3D
 
-@export_flags_3d_physics var _collision_mask: int = 1
-
 var _initial_cam_offset: Vector3 = Vector3.ZERO
 
 @onready var _muzzle_point: Marker3D = $MuzzlePoint
@@ -16,10 +14,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("primary_fire"):
-		_fire_primary()
-	elif Input.is_action_just_pressed("secondary_fire"):
-		_fire_secondary()
 	var player_plane_pos := global_position * Vector3(1, 1, 0)
 
 	_follow_cam.global_position = global_position + _initial_cam_offset
@@ -51,39 +45,12 @@ func _process(_delta: float) -> void:
 		angular_velocity = target_angular_veloc * 30.0
 
 
-func _fire_primary():
-	var projectile := Projectiles.get_projectile("plasma_1") as Projectile
-
-	var atk_origin := Attack.Origin.new()
-
-	atk_origin.fired_from = _muzzle_point.global_position
-	atk_origin.bullet_id = "plasma_1"
-	# Reduce z dimension
-	atk_origin.direction = (_muzzle_point.global_basis.x * Vector3(1, 1, 0)).normalized()
-	atk_origin.collision_mask = _collision_mask
-
-	projectile.launch(atk_origin)
-
-	apply_impulse(-global_basis.x * 2, _recoil_impulse_point.global_position - global_position)
+func get_muzzle_point() -> Node3D:
+	return _muzzle_point
 
 
-func _fire_secondary():
-	for i in 4:
-		var projectile := Projectiles.get_projectile("plasma_2") as Projectile
-
-		var atk_origin := Attack.Origin.new()
-
-		atk_origin.fired_from = _muzzle_point.global_position
-		atk_origin.bullet_id = "plasma_2"
-
-		# Reduce z dimension
-		atk_origin.collision_mask = _collision_mask
-		var direction = (_muzzle_point.global_basis.x * Vector3(1, 1, 0)).normalized()
-		atk_origin.direction = direction.rotated(
-			Vector3.FORWARD,
-			deg_to_rad(randf_range(-10, 10)),
-		)
-
-		projectile.launch(atk_origin)
-
-	apply_impulse(-global_basis.x * 5, _recoil_impulse_point.global_position - global_position)
+func apply_recoil(recoil_force: float) -> void:
+	apply_impulse(
+		-global_basis.x * recoil_force,
+		_recoil_impulse_point.global_position - global_position,
+	)

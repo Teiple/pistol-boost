@@ -7,15 +7,15 @@ const DEFAULT_ID := "_"
 var _runtime_pools: Dictionary[String, Pool] = { }
 
 
-func register_pool(group: int, id: String, pool: Pool) -> void:
-	Assert.not_null(pool, "Pool to register should not be null")
-	var key := pool_key(group, id)
+func register_pool(registry: PoolRegistry) -> void:
+	Assert.not_null(registry.pool, "Pool to register should not be null")
+	var key := pool_key(registry.group, registry.id)
 
 	if key in _runtime_pools:
 		return
 
-	pool.preinit()
-	_runtime_pools[key] = pool
+	registry.pool.preinit()
+	_runtime_pools[key] = registry.pool
 
 
 func get_pool(group: int, id: String) -> Pool:
@@ -29,7 +29,7 @@ func get_pool(group: int, id: String) -> Pool:
 	return _runtime_pools[key]
 
 
-func get_instance(group: int, id: String) -> Node:
+func get_instance(group: PoolGroup.Type, id: String) -> Node:
 	return get_pool(group, id).get_instance()
 
 

@@ -37,7 +37,6 @@ func launch(atk_origin: Attack.Origin) -> void:
 	_traveled_distance = 0.0
 	_origin_position = atk_origin.fired_from
 	_impact_force = atk_origin.impact_force
-	Assert.non_empty_string(atk_origin.bullet_id, "Projectile bullet id")
 
 	# Set up for raycast
 	_raycast.position = Vector3.ZERO

@@ -3,7 +3,7 @@ class_name BulletConfig
 extends Resource
 
 @export_group("General")
-@export var bullet_id: String = "plasma_1"
+@export var bullet: IdPackedScene = null
 @export var damage: float = 10.0
 @export var max_distance: float = 20.0
 @export var impact_force: float = 5.0
