@@ -18,14 +18,15 @@ var _impact_force: float = 0.0
 
 
 func _physics_process(delta: float) -> void:
-	if _traveled_distance >= _max_distance || _check_and_collide():
+	var config := _get_typed_bullet_config()
+	if _traveled_distance >= config.max_distance || _check_and_collide():
 		_pooled_module.return_to_pool()
 		return
-	global_position += _direction * _speed * delta
-	_traveled_distance += _speed * delta
+	global_position += _direction * config.projectile_speed * delta
+	_traveled_distance += config.projectile_speed * delta
 
 
-func init(config: ProjectileBulletConfig) -> void:
+func init(config: BulletConfig) -> void:
 	super.init(config)
 	_check_cover_length()
 
@@ -55,15 +56,17 @@ func launch(atk_origin: Attack.Origin) -> void:
 
 
 func _check_cover_length() -> void:
-	var travel_per_tick := _speed / Engine.physics_ticks_per_second
+	var config := _get_typed_bullet_config()
+
+	var travel_per_tick := config.projectile_speed / Engine.physics_ticks_per_second
 	if travel_per_tick <= _length:
 		return
 
 	var max_safe_speed := _length * Engine.physics_ticks_per_second
-	var min_safe_length := _speed / Engine.physics_ticks_per_second
+	var min_safe_length := config.projectile_speed / Engine.physics_ticks_per_second
 	Assert.error(
 		"%s :: Projectile can clip. " % name +
-		"Current speed is %.3f, " % _speed +
+		"Current speed is %.3f, " % config.projectile_speed +
 		"but the max safe speed for cover length %.3f is %.3f. " % [_length, max_safe_speed] +
 		"Either lower the speed to %.3f or increase cover length to %.3f" % [
 			max_safe_speed,
@@ -73,6 +76,8 @@ func _check_cover_length() -> void:
 
 
 func _check_and_collide() -> bool:
+	var config := _get_typed_bullet_config()
+
 	_raycast.force_raycast_update()
 	if !_raycast.is_colliding():
 		return false
@@ -87,7 +92,7 @@ func _check_and_collide() -> bool:
 
 	var impact_effect := Pools.get_instance(
 		PoolGroup.Type.IMPACT_EFFECT,
-		_impact_id,
+		config.impact_fx.id,
 	) as ImpactEffect
 	Assert.not_null(impact_effect, "Impact pool should return an ImpactEffect")
 	impact_effect.play_at(atk_result.hit_point, atk_result.hit_normal)

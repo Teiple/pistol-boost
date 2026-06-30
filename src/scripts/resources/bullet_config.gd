@@ -8,5 +8,3 @@ extends Resource
 @export var max_distance: float = 20.0
 @export var impact_force: float = 5.0
 @export var impact_fx: IdPackedScene = null
-## Default to Environment, Player and PhysicalObjects
-@export_flags_3d_physics var collision_mask: int = 7
