@@ -1,5 +1,5 @@
 class_name RapidFiringConfig
-extends FiringConfig
+extends StandardFiringConfig
 
-@export var default_firerate: float = 0.2
+@export var firerate: float = 5
 @export var slow_fire_threshold: float = 0.1

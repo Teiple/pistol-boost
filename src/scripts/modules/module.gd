@@ -23,6 +23,9 @@ static func _array_name() -> String:
 
 
 static func _find_on(node: Node, module_name: String) -> Module:
+	Assert.not_null(node, "Node to find module on should not be null")
+	Assert.non_empty_string(module_name, "Module name should not be empty")
+
 	if !node.has_meta(module_name):
 		return null
 	return node.get_meta(module_name)

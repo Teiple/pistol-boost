@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://72q7ui5waqst"]
 
-[ext_resource type="Script" uid="uid://dyil8267t03eb" path="res://src/scripts/thin_projectile.gd" id="1_j3wa2"]
+[ext_resource type="Script" uid="uid://bs8mbu7ayc1rm" path="res://src/scripts/bullets/thin_projectile.gd" id="1_j3wa2"]
 [ext_resource type="PackedScene" uid="uid://cj5lvihr24xug" path="res://src/scenes/modules/pooled_node_module.tscn" id="3_wd1s1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fjmtb"]
@@ -10,19 +10,22 @@ size = Vector3(0.5, 0.05, 0.05)
 shading_mode = 0
 albedo_color = Color(1, 1, 0, 1)
 
-[node name="Projectile_1" type="Node3D" unique_id=1141578560]
+[node name="Projectile_2" type="Node3D" unique_id=1141578560]
 script = ExtResource("1_j3wa2")
+_length = 0.25
+_speed_multiplier_min = 0.5
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=2026364160]
+enabled = false
+exclude_parent = false
+target_position = Vector3(0.25, 0, 0)
+
+[node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("3_wd1s1")]
 
 [node name="MeshPivot" type="Marker3D" parent="." unique_id=2560272]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ProjectileMesh" type="MeshInstance3D" parent="MeshPivot" unique_id=347944620]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
 mesh = SubResource("BoxMesh_fjmtb")
 surface_material_override/0 = SubResource("StandardMaterial3D_g1il6")
-
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=2026364160]
-enabled = false
-exclude_parent = false
-target_position = Vector3(0.5, 0, 0)
-
-[node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("3_wd1s1")]

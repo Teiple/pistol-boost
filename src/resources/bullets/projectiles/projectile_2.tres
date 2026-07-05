@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ProjectileBulletConfig" format=3 uid="uid://c3hwftjup8440"]
+
+[ext_resource type="Resource" uid="uid://bo4echcy4uumw" path="res://src/resources/impact_fx/impact_1.tres" id="1_84l3t"]
+[ext_resource type="PackedScene" uid="uid://72q7ui5waqst" path="res://src/scenes/bullets/projectiles/projectile_2.tscn" id="1_afw77"]
+[ext_resource type="Script" uid="uid://daqfx3a55356b" path="res://src/scripts/resources/id_packed_scene.gd" id="2_430vo"]
+[ext_resource type="Script" uid="uid://be8ofj5hhbeom" path="res://src/scripts/resources/projectile_bullet_config.gd" id="3_430vo"]
+
+[sub_resource type="Resource" id="Resource_t3ikq"]
+script = ExtResource("2_430vo")
+id = "standard_secondary"
+scene = ExtResource("1_afw77")
+metadata/_custom_type_script = "uid://daqfx3a55356b"
+
+[resource]
+script = ExtResource("3_430vo")
+projectile_speed = 15.0
+bullet = SubResource("Resource_t3ikq")
+impact_fx = ExtResource("1_84l3t")
+metadata/_custom_type_script = "uid://be8ofj5hhbeom"

@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="RapidFiringConfig" format=3 uid="uid://dogaqaq18ao6r"]
+[gd_resource type="Resource" script_class="StandardFiringConfig" format=3 uid="uid://dogaqaq18ao6r"]
 
-[ext_resource type="Script" uid="uid://w045rc6ha212" path="res://src/scripts/resources/rapid_firing_config.gd" id="1_gx0rl"]
+[ext_resource type="Resource" uid="uid://dsqkxusu2kct5" path="res://src/resources/bullets/hitscan/hitscan_2.tres" id="1_o3k77"]
+[ext_resource type="Script" uid="uid://c0otd3nyinyf7" path="res://src/scripts/resources/standard_firing_config.gd" id="2_o3k77"]
 
 [resource]
-script = ExtResource("1_gx0rl")
+script = ExtResource("2_o3k77")
+bullets_per_ammo = 4
+spread_angle_degrees = 25.0
+recoil_force_per_shot = 6.0
+bullet_config = ExtResource("1_o3k77")
 metadata/_custom_type_script = "uid://w045rc6ha212"

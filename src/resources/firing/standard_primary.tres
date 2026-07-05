@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="RapidFiringConfig" format=3 uid="uid://blchjbrdyqu3b"]
+[gd_resource type="Resource" script_class="StandardFiringConfig" format=3 uid="uid://blchjbrdyqu3b"]
 
-[ext_resource type="Script" uid="uid://w045rc6ha212" path="res://src/scripts/resources/rapid_firing_config.gd" id="1_k3ib2"]
-[ext_resource type="Resource" uid="uid://jutbdrmng4xc" path="res://src/resources/projectiles/projectile_1.tres" id="1_yamgg"]
+[ext_resource type="Resource" uid="uid://8igbvfkswnw3" path="res://src/resources/bullets/hitscan/hitscan_1.tres" id="1_yamgg"]
+[ext_resource type="Script" uid="uid://c0otd3nyinyf7" path="res://src/scripts/resources/standard_firing_config.gd" id="2_yamgg"]
 
 [resource]
-script = ExtResource("1_k3ib2")
+script = ExtResource("2_yamgg")
 bullet_config = ExtResource("1_yamgg")
 metadata/_custom_type_script = "uid://w045rc6ha212"

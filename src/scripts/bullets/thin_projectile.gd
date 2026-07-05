@@ -2,6 +2,8 @@ class_name ThinProjectile
 extends Projectile
 
 @export var _length: float = 0.5
+@export var _speed_multiplier_min: float = 1.0
+@export var _speed_multiplier_max: float = 1.0
 @export var _scale_x_multiplier_min: float = 0.5
 @export var _scale_x_multiplier_max: float = 1.0
 @export var _scale_z_multiplier_min: float = 0.5
@@ -10,7 +12,7 @@ extends Projectile
 var _direction: Vector3 = Vector3.ZERO
 var _traveled_distance: float = 0.0
 var _origin_position: Vector3 = Vector3.ZERO
-var _impact_force: float = 0.0
+var _speed_multiplier: float = 1.0
 
 @onready var _raycast: RayCast3D = $RayCast3D
 @onready var _pooled_module: PooledNodeModule = $PooledNodeModule
@@ -22,7 +24,9 @@ func _physics_process(delta: float) -> void:
 	if _traveled_distance >= config.max_distance || _check_and_collide():
 		_pooled_module.return_to_pool()
 		return
-	global_position += _direction * config.projectile_speed * delta
+
+	var distance_delta = _speed_multiplier * config.projectile_speed * delta
+	global_position += _direction * distance_delta
 	_traveled_distance += config.projectile_speed * delta
 
 
@@ -31,24 +35,26 @@ func init(config: BulletConfig) -> void:
 	_check_cover_length()
 
 
-func launch(atk_origin: Attack.Origin) -> void:
-	global_position = atk_origin.fired_from
+func launch(from_position: Vector3, direction: Vector3, collision_mask: int) -> void:
+	global_position = from_position
+	_direction = direction
 
-	_direction = atk_origin.direction
 	_traveled_distance = 0.0
-	_origin_position = atk_origin.fired_from
-	_impact_force = atk_origin.impact_force
+	_origin_position = from_position
 
 	# Set up for raycast
 	_raycast.position = Vector3.ZERO
 	_raycast.target_position = Vector3(_length, 0, 0)
-	_raycast.collision_mask = atk_origin.collision_mask
+	_raycast.collision_mask = collision_mask
 
 	Orientation.lookat_direction(self, _direction, Vector3.RIGHT)
 
 	# Randomize visual
 	_mesh_pivot.scale.x = randf_range(_scale_x_multiplier_min, _scale_x_multiplier_max)
 	_mesh_pivot.scale.z = randf_range(_scale_z_multiplier_min, _scale_z_multiplier_max)
+
+	# Randomize speed
+	_speed_multiplier = randf_range(_speed_multiplier_min, _speed_multiplier_max)
 
 	## Initial check
 	if _check_and_collide():
@@ -76,24 +82,29 @@ func _check_cover_length() -> void:
 
 
 func _check_and_collide() -> bool:
-	var config := _get_typed_bullet_config()
+	var projectile_config := _get_typed_bullet_config()
 
 	_raycast.force_raycast_update()
 	if !_raycast.is_colliding():
 		return false
 	visible = false
 
-	var atk_result := Attack.Result.new()
-	atk_result.hit_point = _raycast.get_collision_point()
-	atk_result.hit_normal = _raycast.get_collision_normal()
-	atk_result.collider = _raycast.get_collider()
-	atk_result.hit_direction = _direction
-	atk_result.impact_force = _impact_force
+	var hit_position := _raycast.get_collision_point()
+	var hit_normal := _raycast.get_collision_normal()
+
+	var atk_hit := Attack.Hit.new(
+		projectile_config.damage,
+		Attack.DamageType.BULLET,
+		hit_position,
+		hit_normal,
+		global_basis.x,
+		projectile_config.impact_force,
+	)
 
 	var impact_effect := Pools.get_instance(
 		PoolGroup.Type.IMPACT_EFFECT,
-		config.impact_fx.id,
+		projectile_config.impact_fx.id,
 	) as ImpactEffect
 	Assert.not_null(impact_effect, "Impact pool should return an ImpactEffect")
-	impact_effect.play_at(atk_result.hit_point, atk_result.hit_normal)
+	impact_effect.play_at(atk_hit.position, atk_hit.normal)
 	return true

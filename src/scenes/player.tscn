@@ -4,6 +4,12 @@
 [ext_resource type="Script" uid="uid://b27a2ykkwout" path="res://src/scripts/player.gd" id="1_jvoiy"]
 [ext_resource type="Script" uid="uid://bxpx8w7bq5cvv" path="res://src/scripts/player/firing_controller.gd" id="2_8f1qk"]
 [ext_resource type="Material" uid="uid://c88dn6lkbxh8s" path="res://src/resources/materials/player.tres" id="2_yw0t6"]
+[ext_resource type="Resource" uid="uid://blchjbrdyqu3b" path="res://src/resources/firing/standard_primary.tres" id="5_0qy4j"]
+[ext_resource type="Resource" uid="uid://dogaqaq18ao6r" path="res://src/resources/firing/standard_secondary.tres" id="6_8v6aa"]
+
+[sub_resource type="Curve" id="Curve_0qy4j"]
+_data = [Vector2(0, 0), 0.0, 2.7592692, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yw0t6"]
 size = Vector3(0.036132813, 0.08276367, 0.22387695)
@@ -15,6 +21,7 @@ size = Vector3(0.036132813, 0.08276367, 0.14422607)
 collision_layer = 2
 axis_lock_linear_z = true
 script = ExtResource("1_jvoiy")
+_recoil_turn_speed_recovery_curve = SubResource("Curve_0qy4j")
 
 [node name="pistol" parent="." unique_id=26733741 instance=ExtResource("1_b8b5d")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
@@ -38,12 +45,14 @@ shape = SubResource("BoxShape3D_jvoiy")
 transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0.5, 2)
 
 [node name="RecoilImpulsePoint" type="Node3D" parent="." unique_id=1182736180]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.036, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.058696005, 0.04780169, 0)
 
 [node name="MuzzlePoint" type="Marker3D" parent="." unique_id=314187361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12045959, 0.048901588, 0)
 
 [node name="FiringController" type="Node" parent="." unique_id=1467895321]
 script = ExtResource("2_8f1qk")
+_primary_config = ExtResource("5_0qy4j")
+_secondary_config = ExtResource("6_8v6aa")
 
 [editable path="pistol"]

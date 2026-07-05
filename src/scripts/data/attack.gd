@@ -10,19 +10,26 @@ enum ProjectileModel {
 	PROJECTILE = 1,
 }
 
-class Origin:
-	var damage: float = 10.0
+class Hit:
+	var damage: float = 0.0
 	var damage_type: DamageType = DamageType.BULLET
+	var position: Vector3 = Vector3.ZERO
+	var normal: Vector3 = Vector3.ZERO
 	var direction: Vector3 = Vector3.ZERO
-	var fired_from: Vector3 = Vector3.ZERO
 	var impact_force: float = 0.0
-	var collision_mask: int = 0
 
 
-class Result:
-	var from: Vector3 = Vector3.ZERO
-	var hit_point: Vector3 = Vector3.ZERO
-	var hit_normal: Vector3 = Vector3.ZERO
-	var hit_direction: Vector3 = Vector3.ZERO
-	var impact_force: float = 0.0
-	var collider: CollisionObject3D = null
+	func _init(
+			_damage: float,
+			_damage_type: DamageType,
+			_position: Vector3,
+			_normal: Vector3,
+			_direction: Vector3,
+			_impact_force: float,
+	) -> void:
+		damage = _damage
+		damage_type = _damage_type
+		position = _position
+		normal = _normal
+		direction = _direction
+		impact_force = _impact_force

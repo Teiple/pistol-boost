@@ -8,33 +8,40 @@ func _init(controller: FiringController) -> void:
 	_controller = controller
 
 
-@abstract func on_fire_held(_firing_config: FiringConfig, _held_time: float) -> void
+func on_fire_pressed(_firing_config: FiringConfig) -> void:
+	pass
 
 
-@abstract func on_fire_released(_firing_config: FiringConfig, _held_time: float) -> void
+func on_fire_held(_firing_config: FiringConfig, _held_time: float) -> void:
+	pass
+
+
+func on_fire_released(_firing_config: FiringConfig, _held_time: float) -> void:
+	pass
 
 
 func fire(firing_config: FiringConfig) -> void:
 	Assert.not_null(firing_config, "Firing config should not be null")
+	var standard_config := firing_config as StandardFiringConfig
+	Assert.not_null(standard_config, "Firing config should be of type StandardFiringConfig")
 
-	var muzzle_point := _controller.get_muzzle_point()
-	var collision_mask := _controller.get_collision_mask()
+	for i in standard_config.ammo_per_shot:
+		for j in standard_config.bullets_per_ammo:
+			var muzzle_point := _controller.get_muzzle_point()
+			var collision_mask := _controller.get_collision_mask()
 
-	var spawn_context := BulletSpawnContext.new()
+			var spawn_context := BulletSpawnContext.new(
+				standard_config.bullet_config,
+				muzzle_point.global_position,
+				muzzle_point.global_basis.x * Vector3(1, 1, 0),
+				standard_config.spread_angle_degrees,
+				collision_mask,
+				muzzle_point,
+			)
 
-	spawn_context.fired_from = muzzle_point.global_position
-	spawn_context.muzzle_position = muzzle_point.global_position
-	spawn_context.base_direction = (
-			muzzle_point.global_basis.x * Vector3(1, 1, 0)
-	).normalized()
-	spawn_context.spread_angle_degrees = firing_config.spread_angle_degrees
-	spawn_context.collision_mask = collision_mask
-	spawn_context.bullet_config = firing_config.bullet_config
+			Bullets.spawn_bullet(spawn_context)
 
-	for i in firing_config.bullets_per_ammo:
-		Bullets.spawn_bullet(firing_config.bullet_config, spawn_context)
-
-	_controller.apply_recoil(firing_config.recoil_force)
+	_controller.apply_recoil(standard_config.recoil_force_per_shot)
 
 
 func on_weapon_interrupted() -> void:

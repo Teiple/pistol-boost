@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://dkan3f3d8kwqw"]
 
 [ext_resource type="Script" uid="uid://dkwmkdv1mecly" path="res://src/scripts/autoloads/bullets.gd" id="1_l01qw"]
+[ext_resource type="Script" uid="uid://4hftun5665o1" path="res://src/scripts/resources/bullet_config.gd" id="2_tae01"]
+[ext_resource type="Resource" uid="uid://jutbdrmng4xc" path="res://src/resources/bullets/projectiles/projectile_1.tres" id="3_30lwh"]
+[ext_resource type="Resource" uid="uid://c3hwftjup8440" path="res://src/resources/bullets/projectiles/projectile_2.tres" id="4_8mn55"]
+[ext_resource type="Resource" uid="uid://8igbvfkswnw3" path="res://src/resources/bullets/hitscan/hitscan_1.tres" id="5_8mn55"]
+[ext_resource type="Resource" uid="uid://dsqkxusu2kct5" path="res://src/resources/bullets/hitscan/hitscan_2.tres" id="6_bgosa"]
 
 [node name="Bullets" type="Node" unique_id=1000218288]
 script = ExtResource("1_l01qw")
+_bullet_configs = Array[ExtResource("2_tae01")]([ExtResource("3_30lwh"), ExtResource("4_8mn55"), ExtResource("5_8mn55"), ExtResource("6_bgosa")])

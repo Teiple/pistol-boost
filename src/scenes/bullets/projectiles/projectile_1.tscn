@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4pi1a5s76pys"]
 
-[ext_resource type="Script" uid="uid://dyil8267t03eb" path="res://src/scripts/thin_projectile.gd" id="1_eory0"]
+[ext_resource type="Script" uid="uid://bs8mbu7ayc1rm" path="res://src/scripts/bullets/thin_projectile.gd" id="1_eory0"]
 [ext_resource type="Material" uid="uid://bt2ajxm3mx3yb" path="res://src/resources/materials/projectile_1.tres" id="2_yqprg"]
 [ext_resource type="PackedScene" uid="uid://cj5lvihr24xug" path="res://src/scenes/modules/pooled_node_module.tscn" id="3_o5fnn"]
 

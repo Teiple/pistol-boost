@@ -3,6 +3,7 @@
   "editor.formatOnSave": true,
   "godotFormatter.safe": false,
   "godotFormatter.reorderCode": true,
+  "godotFormatter.useSpaces": false,
   "files.exclude": {
     // "**/.git": true,
     "**/.svn": true,

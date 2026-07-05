@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dfjxed0v75tk2"]
+
+[ext_resource type="PackedScene" uid="uid://cj5lvihr24xug" path="res://src/scenes/modules/pooled_node_module.tscn" id="1_2wwam"]
+[ext_resource type="Script" uid="uid://d1byvw7ybw7o4" path="res://src/scripts/bullets/beam.gd" id="1_o5ww2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fjmtb"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g1il6"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[node name="Beam_1" type="Node3D" unique_id=1141578560]
+script = ExtResource("1_o5ww2")
+
+[node name="MeshPivot" type="Marker3D" parent="." unique_id=2560272]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="MeshPivot" unique_id=347944620]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
+mesh = SubResource("BoxMesh_fjmtb")
+surface_material_override/0 = SubResource("StandardMaterial3D_g1il6")
+
+[node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("1_2wwam")]
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="." unique_id=522817645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+enabled = false
+target_position = Vector3(0, 0, 0)
+collision_mask = 0

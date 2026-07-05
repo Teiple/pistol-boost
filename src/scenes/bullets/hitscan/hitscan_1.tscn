@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d3gh6g6mrrx7c"]
+
+[ext_resource type="Script" uid="uid://cy0x6kcpao3rs" path="res://src/scripts/bullets/hitscan.gd" id="1_opyjj"]
+[ext_resource type="PackedScene" uid="uid://cj5lvihr24xug" path="res://src/scenes/modules/pooled_node_module.tscn" id="2_7mxwk"]
+
+[node name="Hitscan_1" type="Node3D" unique_id=1141578560]
+script = ExtResource("1_opyjj")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=2026364160]
+enabled = false
+exclude_parent = false
+target_position = Vector3(1, 0, 0)
+collision_mask = 0
+
+[node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("2_7mxwk")]
