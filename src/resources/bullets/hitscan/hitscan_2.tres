@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d3gh6g6mrrx7c" path="res://src/scenes/bullets/hitscan/hitscan_1.tscn" id="1_556nc"]
 [ext_resource type="Script" uid="uid://daqfx3a55356b" path="res://src/scripts/resources/id_packed_scene.gd" id="2_dbjft"]
 [ext_resource type="Resource" uid="uid://bo4echcy4uumw" path="res://src/resources/impact_fx/impact_1.tres" id="3_7agcl"]
+[ext_resource type="PackedScene" uid="uid://ehhubthi03sk" path="res://src/scenes/effects/trails/hitscan_trail_1.tscn" id="3_dbjft"]
 [ext_resource type="Script" uid="uid://dfpovxpm0j6o2" path="res://src/scripts/resources/hitscan_bullet_config.gd" id="4_4alyr"]
 
 [sub_resource type="Resource" id="Resource_l71bs"]
@@ -11,8 +12,15 @@ id = "hitscan_2"
 scene = ExtResource("1_556nc")
 metadata/_custom_type_script = "uid://daqfx3a55356b"
 
+[sub_resource type="Resource" id="Resource_4alyr"]
+script = ExtResource("2_dbjft")
+id = "hitscan_trail_1"
+scene = ExtResource("3_dbjft")
+metadata/_custom_type_script = "uid://daqfx3a55356b"
+
 [resource]
 script = ExtResource("4_4alyr")
+hitscan_trail = SubResource("Resource_4alyr")
 bullet = SubResource("Resource_l71bs")
 impact_fx = ExtResource("3_7agcl")
 metadata/_custom_type_script = "uid://daqfx3a55356b"

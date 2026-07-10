@@ -19,10 +19,13 @@ func launch(
 	_raycast.collision_mask = collision_mask
 	_raycast.force_raycast_update()
 
+	var trail_end := from_position + direction * hitscan_config.max_distance
+
 	if _raycast.is_colliding():
 		var collider := _raycast.get_collider()
 		var collided_position := _raycast.get_collision_point()
 		var collided_normal := _raycast.get_collision_normal()
+		trail_end = collided_position
 
 		var atk_hit := Attack.Hit.new(
 			hitscan_config.damage,
@@ -53,6 +56,14 @@ func launch(
 
 		if collider is StaticBody3D:
 			pass
+
+	if hitscan_config.show_bullet_trail:
+		var trail := Pools.get_instance(
+			PoolGroup.Type.HITSCAN_TRAIL,
+			hitscan_config.hitscan_trail.id,
+		) as HitscanTrail
+		Assert.not_null(trail, "Hitscan trail pool should return a HitscanTrail")
+		trail.play_at(from_position, trail_end)
 
 	_pooled_module.return_to_pool()
 

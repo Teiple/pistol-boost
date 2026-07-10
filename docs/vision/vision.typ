@@ -191,41 +191,40 @@
   ]
 
   #toolbox.side-by-side[
-    ==== Takes and lessons leanred
+    ==== Takes and lessons learned
 
     Need to create power-ups that are:
-    #framed-block([
-      - Mechanically fun
-      - Visually interesting
-      - Distinct on its own
-      - Work in various cases
-      - Easy to control
+
+    #box(post-it[
+      Mechanically fun
+
+      Visually interesting
     ])
+    #box(post-it[
+      Work in various cases
 
-    ==== What will be there for PB
-    PB aims to:
-    #framed-block([
-      - Remove niche, similar power-ups/
-
-      - Add more power-ups variety
-
-      - Keeping replacement model from PBL
+      Easy to control
+    ])
+    #box(post-it[
+      Different from other power-ups
     ])
   ][
-    ==== A note of PBL's power-up replacement model
-    PBL's replacement model was simple: one active power-up, and picking up a new one replaces the current one.
+    ==== What will be there for PB
+    PB aims to:new
+    - #framed-block([
+        Remove niche, similar power-ups
+      ])
 
-    Compared to stacking and managing multiple power-ups, this keeps controls minimal and avoids extra UI or cycling buttons.
+    - #framed-block([
+        Add more power-ups variety
+      ])
 
-    It also creates quick decisions:
-    #framed-block([
-      - Take the new power-up and adapt
-
-      - Avoid it if the current one fits better
-
-      - Risk losing a strong power-up in a tense moment
-    ])
+    - #framed-block([
+        Keeping replacement model from PBL
+      ])
   ]
+
+  #pagebreak()
 
   #toolbox.side-by-side[
     ==== New power-up ideas
@@ -243,4 +242,62 @@
       - *EMP Gun*: Disable enemies in an area briefly
     ]
   ]
+
+  #pagebreak()
+
+  == Enemy Archetypes
+  === Overview
+  #toolbox.side-by-side[
+    #toolbox.side-by-side[
+      #image("pbl_turret.png", height: 25%, fit: "contain")
+      Turret
+    ][
+      #image("pbl_robot.png", height: 25%, fit: "contain")
+      Robot
+    ]
+    #toolbox.side-by-side[
+      #image("pbl_crawler.png", height: 25%, fit: "contain")
+      Crawler
+    ][
+      #image("pbl_drone.png", height: 25%, fit: "contain")
+      Drone
+    ]
+  ][
+    Enemies poses a vital role in the game.
+
+    The enemies, along with their projectiles and their shooting behavior force the player to:
+
+    - Contanstly move around
+
+    - Have a strategy of deal with them through precise physical movement and suitable choices of power-ups
+
+    Throughout the wave progression, multiple enemy archetypes will be introduce gradually, pairing up with the last ones to create a smooth and fair transition
+  ]
+
+  #pagebreak()
+
+  === Turret
+  Turret is the most basic enemy type in the game which stationary position and predictable shooting behavior.
+
+  #toolbox.side-by-side[
+    #image("pbl_turret.png", fit: "contain", width: 100%)
+  ][
+    Turrets spawn at specified points on the map and never move.
+
+    A turret has basically two states:
+
+    - Idle: the turret's cannon rotates to neutral position
+
+    - Combat: actively aiming its cannon and shooting
+  ][
+    They switch to combat state and open fire in the player's direction _upon having visual contact_
+
+    Shooting behavior:
+
+    - *Burst*: 2 continuous shots at a time
+
+    - *Predictive*: shooting ahead of the player based on player's velocity
+  ]
+
+
 ]

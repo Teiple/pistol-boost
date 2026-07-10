@@ -7,6 +7,6 @@
 script = ExtResource("2_o3k77")
 bullets_per_ammo = 4
 spread_angle_degrees = 25.0
-recoil_force_per_shot = 6.0
+recoil_force_per_shot = 7.0
 bullet_config = ExtResource("1_o3k77")
 metadata/_custom_type_script = "uid://w045rc6ha212"

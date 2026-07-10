@@ -5,5 +5,6 @@
 
 [resource]
 script = ExtResource("2_yamgg")
+recoil_force_per_shot = 3.0
 bullet_config = ExtResource("1_yamgg")
 metadata/_custom_type_script = "uid://w045rc6ha212"

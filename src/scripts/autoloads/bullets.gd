@@ -12,6 +12,7 @@ func _ready():
 	var registered_bullet_config_paths: Dictionary[String, String] = { }
 	for bullet_config in _bullet_configs:
 		var registries := _create_bullet_pools(bullet_config)
+
 		_validate_unique_bullet_config(
 			registered_bullet_config_paths,
 			bullet_config,
@@ -128,7 +129,7 @@ func _create_hitscan_bullet_pools(
 		bullet_config.impact_fx.scene,
 	)
 
-	return [
+	var registries: Array[PoolRegistry] = [
 		PoolRegistry.new(
 			PoolGroup.Type.HITSCAN,
 			bullet_config.bullet.id,
@@ -141,7 +142,26 @@ func _create_hitscan_bullet_pools(
 		),
 	]
 
+	if bullet_config.show_bullet_trail:
+		Assert.not_null(
+			bullet_config.hitscan_trail,
+			"Hitscan trail should be set when show_bullet_trail is enabled",
+		)
+		registries.push_back(
+			PoolRegistry.new(
+				PoolGroup.Type.HITSCAN_TRAIL,
+				bullet_config.hitscan_trail.id,
+				SpatialPool.new(
+					10,
+					bullet_config.hitscan_trail.scene,
+				),
+			),
+		)
 
+	return registries
+
+
+## Ensure each bullet config has exact 1 presentation
 func _validate_unique_bullet_config(
 		registered_bullet_config_paths: Dictionary[String, String],
 		bullet_config: BulletConfig,
