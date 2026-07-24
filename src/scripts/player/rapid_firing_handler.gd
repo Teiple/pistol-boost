@@ -1,5 +1,5 @@
 class_name RapidFiringHandler
-extends FiringHandler
+extends PlayerFiringHandler
 
 var _last_shot_count := 0
 

@@ -1,5 +1,5 @@
 class_name BeamFiringHandler
-extends FiringHandler
+extends PlayerFiringHandler
 
 var _active_beam: Beam = null
 

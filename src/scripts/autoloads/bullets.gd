@@ -13,11 +13,7 @@ func _ready():
 	for bullet_config in _bullet_configs:
 		var registries := _create_bullet_pools(bullet_config)
 
-		_validate_unique_bullet_config(
-			registered_bullet_config_paths,
-			bullet_config,
-			registries,
-		)
+		_validate_unique_bullet_config(registered_bullet_config_paths, bullet_config, registries)
 
 		for registry in registries:
 			Pools.register_pool(registry)
@@ -42,104 +38,60 @@ func spawn_bullet(spawn_context: BulletSpawnContext) -> Bullet:
 	return null
 
 
+func get_bullet_aim_resolver(
+	bullet_config: BulletConfig,
+	aim_resolve_callable_name: String = Bullet.resolve_aim_direction.get_method(),
+) -> AimResolver:
+	var script := ResourceUtil.get_scene_script(bullet_config.bullet.scene)
+	if script != null && script.has_script_method(aim_resolve_callable_name):
+		return AimResolver.new(Callable(script, aim_resolve_callable_name), bullet_config)
+	return null
+
+
 func _create_bullet_pools(bullet_config: BulletConfig) -> Array[PoolRegistry]:
 	Assert.not_null(bullet_config, "Bullet config should not be null")
 
 	if bullet_config is ProjectileBulletConfig:
-		return _create_projectile_bullet_pools(
-			bullet_config as ProjectileBulletConfig,
-		)
+		return _create_projectile_bullet_pools(bullet_config as ProjectileBulletConfig)
 	if bullet_config is HitscanBulletConfig:
-		return _create_hitscan_bullet_pools(
-			bullet_config as HitscanBulletConfig,
-		)
+		return _create_hitscan_bullet_pools(bullet_config as HitscanBulletConfig)
 	if bullet_config is BeamBulletConfig:
-		return _create_laser_bullet_pools(
-			bullet_config as BeamBulletConfig,
-		)
+		return _create_laser_bullet_pools(bullet_config as BeamBulletConfig)
 
 	Assert.unreachable("Bullet config pool creator was not implemented")
 	return []
 
 
-func _create_projectile_bullet_pools(
-		bullet_config: ProjectileBulletConfig,
-) -> Array[PoolRegistry]:
-	var bullet_pool := BulletPool.create(
-		10,
-		bullet_config,
-	)
+func _create_projectile_bullet_pools(bullet_config: ProjectileBulletConfig) -> Array[PoolRegistry]:
+	var bullet_pool := BulletPool.create(10, bullet_config)
 
-	var impact_pool := SpatialPool.new(
-		10,
-		bullet_config.impact_fx.scene,
-	)
+	var impact_pool := SpatialPool.new(10, bullet_config.impact_fx.scene)
 
 	return [
-		PoolRegistry.new(
-			PoolGroup.Type.PROJECTILE,
-			bullet_config.bullet.id,
-			bullet_pool,
-		),
-		PoolRegistry.new(
-			PoolGroup.Type.IMPACT_EFFECT,
-			bullet_config.impact_fx.id,
-			impact_pool,
-		),
+		PoolRegistry.new(PoolGroup.Type.PROJECTILE, bullet_config.bullet.id, bullet_pool),
+		PoolRegistry.new(PoolGroup.Type.IMPACT_EFFECT, bullet_config.impact_fx.id, impact_pool),
 	]
 
 
-func _create_laser_bullet_pools(
-		bullet_config: BeamBulletConfig,
-) -> Array[PoolRegistry]:
-	var bullet_pool := BulletPool.create(
-		10,
-		bullet_config,
-	)
+func _create_laser_bullet_pools(bullet_config: BeamBulletConfig) -> Array[PoolRegistry]:
+	var bullet_pool := BulletPool.create(10, bullet_config)
 
-	var impact_pool := SpatialPool.new(
-		10,
-		bullet_config.impact_fx.scene,
-	)
+	var impact_pool := SpatialPool.new(10, bullet_config.impact_fx.scene)
 
 	return [
-		PoolRegistry.new(
-			PoolGroup.Type.BEAM,
-			bullet_config.bullet.id,
-			bullet_pool,
-		),
-		PoolRegistry.new(
-			PoolGroup.Type.IMPACT_EFFECT,
-			bullet_config.impact_fx.id,
-			impact_pool,
-		),
+		PoolRegistry.new(PoolGroup.Type.BEAM, bullet_config.bullet.id, bullet_pool),
+		PoolRegistry.new(PoolGroup.Type.IMPACT_EFFECT, bullet_config.impact_fx.id, impact_pool),
 	]
 
 
-func _create_hitscan_bullet_pools(
-		bullet_config: HitscanBulletConfig,
-) -> Array[PoolRegistry]:
-	var bullet_pool := BulletPool.create(
-		10,
-		bullet_config,
-	)
+func _create_hitscan_bullet_pools(bullet_config: HitscanBulletConfig) -> Array[PoolRegistry]:
+	var bullet_pool := BulletPool.create(10, bullet_config)
 
-	var impact_pool := SpatialPool.new(
-		10,
-		bullet_config.impact_fx.scene,
-	)
+	var impact_pool := SpatialPool.new(10, bullet_config.impact_fx.scene)
 
 	var registries: Array[PoolRegistry] = [
-		PoolRegistry.new(
-			PoolGroup.Type.HITSCAN,
-			bullet_config.bullet.id,
-			bullet_pool,
-		),
-		PoolRegistry.new(
-			PoolGroup.Type.IMPACT_EFFECT,
-			bullet_config.impact_fx.id,
-			impact_pool,
-		),
+		PoolRegistry.new(PoolGroup.Type.HITSCAN, bullet_config.bullet.id, bullet_pool),
+		PoolRegistry.new(PoolGroup.Type.IMPACT_EFFECT, bullet_config.impact_fx.id, impact_pool),
 	]
 
 	if bullet_config.show_bullet_trail:
@@ -151,10 +103,7 @@ func _create_hitscan_bullet_pools(
 			PoolRegistry.new(
 				PoolGroup.Type.HITSCAN_TRAIL,
 				bullet_config.hitscan_trail.id,
-				SpatialPool.new(
-					10,
-					bullet_config.hitscan_trail.scene,
-				),
+				SpatialPool.new(10, bullet_config.hitscan_trail.scene),
 			),
 		)
 
@@ -163,9 +112,9 @@ func _create_hitscan_bullet_pools(
 
 ## Ensure each bullet config has exact 1 presentation
 func _validate_unique_bullet_config(
-		registered_bullet_config_paths: Dictionary[String, String],
-		bullet_config: BulletConfig,
-		registries: Array[PoolRegistry],
+	registered_bullet_config_paths: Dictionary[String, String],
+	bullet_config: BulletConfig,
+	registries: Array[PoolRegistry],
 ) -> void:
 	Assert.not_null(bullet_config, "Bullet config should not be null")
 	Assert.non_empty_array(registries, "Bullet config should create at least one pool registry")
@@ -178,11 +127,8 @@ func _validate_unique_bullet_config(
 	if key in registered_bullet_config_paths:
 		Assert.check(
 			registered_bullet_config_paths[key] == config_path,
-			"Bullet pool key %s is used by multiple bullet configs: %s != %s" % [
-				key,
-				registered_bullet_config_paths[key],
-				config_path,
-			],
+			"Bullet pool key %s is used by multiple bullet configs: %s != %s"
+			% [key, registered_bullet_config_paths[key], config_path],
 		)
 		return
 

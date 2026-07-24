@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StandardFiringConfig" format=3 uid="uid://blchjbrdyqu3b"]
 
-[ext_resource type="Resource" uid="uid://8igbvfkswnw3" path="res://src/resources/bullets/hitscan/hitscan_1.tres" id="1_yamgg"]
+[ext_resource type="Resource" uid="uid://jutbdrmng4xc" path="res://src/resources/bullets/projectiles/projectile_1.tres" id="1_yamgg"]
 [ext_resource type="Script" uid="uid://c0otd3nyinyf7" path="res://src/scripts/resources/standard_firing_config.gd" id="2_yamgg"]
 
 [resource]

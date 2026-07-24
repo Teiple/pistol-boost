@@ -1,5 +1,5 @@
 class_name StandardFiringHandler
-extends FiringHandler
+extends PlayerFiringHandler
 
 
 func on_fire_pressed(firing_config: FiringConfig) -> void:

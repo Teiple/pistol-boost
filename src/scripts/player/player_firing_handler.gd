@@ -1,10 +1,10 @@
 @abstract
-class_name FiringHandler
+class_name PlayerFiringHandler
 
-var _controller: FiringController
+var _controller: PlayerFiringController
 
 
-func _init(controller: FiringController) -> void:
+func _init(controller: PlayerFiringController) -> void:
 	_controller = controller
 
 
@@ -20,7 +20,7 @@ func on_fire_released(_firing_config: FiringConfig, _held_time: float) -> void:
 	pass
 
 
-func fire(firing_config: FiringConfig) -> void:
+func fire(firing_config: FiringConfig, apply_recoil: bool = true) -> void:
 	Assert.not_null(firing_config, "Firing config should not be null")
 	var standard_config := firing_config as StandardFiringConfig
 	Assert.not_null(standard_config, "Firing config should be of type StandardFiringConfig")

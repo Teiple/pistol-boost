@@ -13,7 +13,6 @@ metadata/_custom_type_script = "uid://daqfx3a55356b"
 
 [resource]
 script = ExtResource("3_430vo")
-projectile_speed = 15.0
 bullet = SubResource("Resource_t3ikq")
 impact_fx = ExtResource("1_84l3t")
 metadata/_custom_type_script = "uid://be8ofj5hhbeom"

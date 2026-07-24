@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://wipfemci7pmi" path="res://assets/models/pistol.glb" id="1_b8b5d"]
 [ext_resource type="Script" uid="uid://b27a2ykkwout" path="res://src/scripts/player.gd" id="1_jvoiy"]
-[ext_resource type="Script" uid="uid://bxpx8w7bq5cvv" path="res://src/scripts/player/firing_controller.gd" id="2_8f1qk"]
+[ext_resource type="Script" uid="uid://bxpx8w7bq5cvv" path="res://src/scripts/player/player_firing_controller.gd" id="2_8f1qk"]
 [ext_resource type="Material" uid="uid://c88dn6lkbxh8s" path="res://src/resources/materials/player.tres" id="2_yw0t6"]
 [ext_resource type="Resource" uid="uid://blchjbrdyqu3b" path="res://src/resources/firing/standard_primary.tres" id="5_0qy4j"]
 [ext_resource type="Resource" uid="uid://dogaqaq18ao6r" path="res://src/resources/firing/standard_secondary.tres" id="6_8v6aa"]
@@ -12,16 +12,19 @@ _data = [Vector2(0, 0), 0.0, 2.7592692, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yw0t6"]
+margin = 0.1
 size = Vector3(0.036132813, 0.08276367, 0.22387695)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jvoiy"]
+margin = 0.1
 size = Vector3(0.036132813, 0.08276367, 0.14422607)
 
-[node name="Player" type="RigidBody3D" unique_id=676303293]
+[node name="Player" type="RigidBody3D" unique_id=676303293 node_paths=PackedStringArray("_collision_shapes")]
 collision_layer = 2
 axis_lock_linear_z = true
 script = ExtResource("1_jvoiy")
 _recoil_turn_speed_recovery_curve = SubResource("Curve_0qy4j")
+_collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2")]
 
 [node name="pistol" parent="." unique_id=26733741 instance=ExtResource("1_b8b5d")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
@@ -45,7 +48,7 @@ shape = SubResource("BoxShape3D_jvoiy")
 transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0.5, 2)
 
 [node name="RecoilImpulsePoint" type="Node3D" parent="." unique_id=1182736180]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.058696005, 0.04780169, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025126114, 0.0073890314, 0)
 
 [node name="MuzzlePoint" type="Marker3D" parent="." unique_id=314187361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12045959, 0.048901588, 0)
@@ -54,5 +57,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12045959, 0.048901588, 0)
 script = ExtResource("2_8f1qk")
 _primary_config = ExtResource("5_0qy4j")
 _secondary_config = ExtResource("6_8v6aa")
+
+[node name="GroundCheck" type="ShapeCast3D" parent="." unique_id=1106964826]
+enabled = false
+target_position = Vector3(0, 0, 0)
 
 [editable path="pistol"]

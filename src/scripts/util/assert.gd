@@ -243,12 +243,52 @@ static func equals(val: Variant, other_val: Variant, context: String) -> void:
 	)
 
 
+static func equali(val: int, compare_to: int, context: String) -> void:
+	assert(
+		val == compare_to,
+		MSG_FMT % [
+			context,
+			"This integer should be equal to %d but it was %d" % [compare_to, val],
+		],
+	)
+
+
+static func equalf(val: float, compare_to: float, context: String) -> void:
+	assert(
+		is_equal_approx(val, compare_to),
+		MSG_FMT % [
+			context,
+			"This float should be approximately equal to %f but it was %f" % [compare_to, val],
+		],
+	)
+
+
+static func not_equali(val: int, compare_to: int, context: String) -> void:
+	assert(
+		val != compare_to,
+		MSG_FMT % [
+			context,
+			"This integer should not be equal to %d" % compare_to,
+		],
+	)
+
+
+static func not_equalf(val: float, compare_to: float, context: String) -> void:
+	assert(
+		not is_equal_approx(val, compare_to),
+		MSG_FMT % [
+			context,
+			"This float should not be approximately equal to %f" % compare_to,
+		],
+	)
+
+
 static func greateri(val: int, compare_to: int, context: String) -> void:
 	assert(
 		val > compare_to,
 		MSG_FMT % [
 			context,
-			"This interger should be greater than %d but it was %d" % [compare_to, val],
+			"This integer should be greater than %d but it was %d" % [compare_to, val],
 		],
 	)
 
@@ -258,6 +298,68 @@ static func greaterf(val: float, compare_to: float, context: String) -> void:
 		val > compare_to,
 		MSG_FMT % [
 			context,
-			"This float should be greater than %d but it was %d" % [compare_to, val],
+			"This float should be greater than %f but it was %f" % [compare_to, val],
+		],
+	)
+
+
+static func greater_or_equali(val: int, compare_to: int, context: String) -> void:
+	assert(
+		val >= compare_to,
+		MSG_FMT % [
+			context,
+			"This integer should be greater than or equal to %d but it was %d" % [compare_to, val],
+		],
+	)
+
+
+static func greater_or_equalf(val: float, compare_to: float, context: String) -> void:
+	assert(
+		val >= compare_to or is_equal_approx(val, compare_to),
+		MSG_FMT % [
+			context,
+			"This float should be greater than or approximately equal to %f but it was %f"
+			% [compare_to, val],
+		],
+	)
+
+
+static func lessi(val: int, compare_to: int, context: String) -> void:
+	assert(
+		val < compare_to,
+		MSG_FMT % [
+			context,
+			"This integer should be less than %d but it was %d" % [compare_to, val],
+		],
+	)
+
+
+static func lessf(val: float, compare_to: float, context: String) -> void:
+	assert(
+		val < compare_to,
+		MSG_FMT % [
+			context,
+			"This float should be less than %f but it was %f" % [compare_to, val],
+		],
+	)
+
+
+static func less_or_equali(val: int, compare_to: int, context: String) -> void:
+	assert(
+		val <= compare_to,
+		MSG_FMT % [
+			context,
+			"This integer should be less than or equal to %d but it was %d" % [compare_to, val],
+		],
+	)
+
+
+static func less_or_equalf(val: float, compare_to: float, context: String) -> void:
+	assert(
+		val <= compare_to or is_equal_approx(val, compare_to),
+		MSG_FMT % [
+			context,
+			"This float should be less than or approximately equal to %f but it was %f"
+			% [compare_to, val],
 		],
 	)
