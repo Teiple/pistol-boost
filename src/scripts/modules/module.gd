@@ -8,18 +8,22 @@ const ARRAY_PREFIX = "arr_"
 @export var _is_unique: bool = true
 
 
-static func _name() -> String:
-	Assert.unreachable("Module should have set its own name")
-	return "Module"
-
-
 static func find_on(_node: Node) -> Module:
-	Assert.unreachable("Module should define its own find method")
+	Assert.unreachable(
+		"Module should define its own find method."
+		+ " Non-unique module may only define find_array_on()"
+	)
 	return null
 
 
-static func _array_name() -> String:
-	return ARRAY_PREFIX + _name()
+static func find_array_on(_node: Node) -> Array:
+	Assert.unreachable("Module should define its own find method")
+	return []
+
+
+static func _name() -> String:
+	Assert.unreachable("Module should have set its own name")
+	return "Module"
 
 
 static func _find_on(node: Node, module_name: String) -> Module:
@@ -41,11 +45,14 @@ func _ready() -> void:
 			module_owner().set_meta(_name(), self)
 	else:
 		var modules := []
-		if !module_owner().has_meta(_array_name()):
+		if !module_owner().has_meta(ARRAY_PREFIX + _name()):
 			modules.push_back(self)
-			module_owner().set_meta(_array_name(), modules)
+			module_owner().set_meta(ARRAY_PREFIX + _name(), modules)
 		else:
-			var arr: Array = type_convert(module_owner().get_meta(_array_name()), TYPE_ARRAY)
+			var arr: Array = type_convert(
+				module_owner().get_meta(ARRAY_PREFIX + _name()),
+				TYPE_ARRAY,
+			)
 			arr.push_back(self)
 			modules = arr
 

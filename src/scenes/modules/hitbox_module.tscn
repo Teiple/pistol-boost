@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dq14655v1w3sn"]
+
+[ext_resource type="Script" uid="uid://cdwsmffncqmld" path="res://src/scripts/modules/hitbox_module.gd" id="1_lt2ow"]
+
+[node name="HitboxModule" type="Area3D" unique_id=196940778]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+monitorable = false
+script = ExtResource("1_lt2ow")
+_is_unique = false

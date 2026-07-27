@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bjg4gkrpmji4l"]
+
+[ext_resource type="Script" uid="uid://dddttrix6gaus" path="res://src/scripts/player/player_contact_scanner.gd" id="1_jn0fx"]
+
+[node name="PlayerContactScanner" type="Node3D" unique_id=1726755506 node_paths=PackedStringArray("_contact_check")]
+script = ExtResource("1_jn0fx")
+_contact_check = NodePath("ContactCheck")
+
+[node name="ContactCheck" type="ShapeCast3D" parent="." unique_id=1210953662]
+enabled = false
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+collide_with_areas = true

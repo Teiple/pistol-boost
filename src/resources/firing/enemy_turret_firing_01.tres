@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BurstFiringConfig" format=3 uid="uid://d1htco13wk15u"]
+
+[ext_resource type="Resource" uid="uid://cnf6mqbf23hsg" path="res://src/resources/bullets/projectiles/projectile_3.tres" id="1_jsh8q"]
+[ext_resource type="Script" uid="uid://dc51s6uogj87w" path="res://src/scripts/resources/burst_firing_config.gd" id="2_jsh8q"]
+
+[resource]
+script = ExtResource("2_jsh8q")
+burst_size = 2
+burst_interval = 0.5
+burst_firerate = 7.0
+bullet_config = ExtResource("1_jsh8q")
+metadata/_custom_type_script = "uid://w045rc6ha212"

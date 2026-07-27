@@ -9,6 +9,10 @@ func init_states(states: Array[StateMachineState]) -> void:
 		_states[state.get_state_id()] = state
 
 
+func get_current_state_id() -> int:
+	return _current_state_id
+
+
 func goto(state_id: int) -> void:
 	if _current_state_id >= 0:
 		_states[_current_state_id].exit()

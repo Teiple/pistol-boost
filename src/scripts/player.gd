@@ -1,7 +1,7 @@
 class_name Player
 extends RigidBody3D
 
-@export var _max_speed := 30.0
+@export var _max_speed := 20.0
 @export var _max_turn_speed := 25.0
 @export var _recoil_turn_speed_recovery_curve: Curve = Curve.new()
 @export var _recoil_turn_speed_recovery_time := 0.3
@@ -13,16 +13,19 @@ extends RigidBody3D
 var _initial_cam_offset: Vector3 = Vector3.ZERO
 var _turn_speed_multiplier := 0.3
 var _last_recoil_time := 0.0
+var _health: HealthModule
 
 @onready var _muzzle_point: Marker3D = $MuzzlePoint
 @onready var _follow_cam: Camera3D = $FollowCam
 @onready var _recoil_impulse_point: Node3D = $RecoilImpulsePoint
-@onready var _ground_check: ShapeCast3D = $GroundCheck
+@onready var _contact_scanner: PlayerContactScanner = $PlayerContactScanner
 
 
 func _ready() -> void:
 	_initial_cam_offset = _follow_cam.global_position - global_position
 	_follow_cam.top_level = true
+	_health = HealthModule.find_on(self)
+	_health.damage_taken.connect(_on_damage_taken)
 
 
 func _physics_process(_delta: float) -> void:
@@ -68,31 +71,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func is_on_floor() -> bool:
-	Assert.non_empty_array(_collision_shapes, "Collision shape array should have been set")
-	for col in _collision_shapes:
-		_ground_check.global_transform = col.global_transform
-
-		var prev_margin := col.shape.margin
-
-		Assert.greaterf(
-			prev_margin,
-			0.01,
-			"Ground check margin should be smaller than collision shape margin",
-		)
-		col.shape.margin = 0.01
-
-		_ground_check.shape = col.shape
-		_ground_check.global_transform = col.global_transform
-		_ground_check.target_position = _ground_check.to_local(Vector3.DOWN * 0.1)
-
-		_ground_check.force_shapecast_update()
-
-		col.shape.margin = prev_margin
-
-		if _ground_check.is_colliding():
-			return true
-
-	return false
+	return _contact_scanner.is_on_floor()
 
 
 func get_muzzle_point() -> Node3D:
@@ -116,3 +95,13 @@ func apply_recoil(recoil_force: float) -> void:
 	)
 
 	_last_recoil_time = FrameTime.physics_process_time()
+
+
+func get_collision_shapes() -> Array[CollisionShape3D]:
+	return _collision_shapes
+
+
+func _on_damage_taken(health: HealthModule):
+	var atk := health.get_last_hit()
+	Assert.not_null(atk, "Damaged unit should have last attack hit saved")
+	apply_impulse(atk.direction * atk.impact_force)

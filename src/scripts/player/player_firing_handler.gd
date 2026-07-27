@@ -41,7 +41,8 @@ func fire(firing_config: FiringConfig, apply_recoil: bool = true) -> void:
 
 			Bullets.spawn_bullet(spawn_context)
 
-	_controller.apply_recoil(standard_config.recoil_force_per_shot)
+	if apply_recoil:
+		_controller.apply_recoil(standard_config.recoil_force_per_shot)
 
 
 func on_weapon_interrupted() -> void:

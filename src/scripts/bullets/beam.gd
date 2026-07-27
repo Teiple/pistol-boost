@@ -42,6 +42,7 @@ func _get_typed_bullet_config() -> BeamBulletConfig:
 
 
 func _hit():
+	_shapecast.collision_mask = _collision_mask
 	_shapecast.force_shapecast_update()
 	var beam_config := _get_typed_bullet_config()
 	var damage := beam_config.charge_damage_curve.sample(

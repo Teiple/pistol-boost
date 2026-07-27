@@ -13,4 +13,8 @@ func init(config: BulletConfig) -> void:
 	_bullet_config = config
 
 
+func get_bullet_config() -> BulletConfig:
+	return _bullet_config
+
+
 @abstract func _get_typed_bullet_config() -> BulletConfig

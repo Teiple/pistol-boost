@@ -4,11 +4,14 @@
 [ext_resource type="Script" uid="uid://b27a2ykkwout" path="res://src/scripts/player.gd" id="1_jvoiy"]
 [ext_resource type="Script" uid="uid://bxpx8w7bq5cvv" path="res://src/scripts/player/player_firing_controller.gd" id="2_8f1qk"]
 [ext_resource type="Material" uid="uid://c88dn6lkbxh8s" path="res://src/resources/materials/player.tres" id="2_yw0t6"]
+[ext_resource type="PackedScene" uid="uid://dq14655v1w3sn" path="res://src/scenes/modules/hitbox_module.tscn" id="4_8v6aa"]
 [ext_resource type="Resource" uid="uid://blchjbrdyqu3b" path="res://src/resources/firing/standard_primary.tres" id="5_0qy4j"]
 [ext_resource type="Resource" uid="uid://dogaqaq18ao6r" path="res://src/resources/firing/standard_secondary.tres" id="6_8v6aa"]
+[ext_resource type="PackedScene" uid="uid://b5ex3uugjpstn" path="res://src/scenes/modules/health_module.tscn" id="8_4pcbe"]
+[ext_resource type="PackedScene" uid="uid://bjg4gkrpmji4l" path="res://src/scenes/player_contact_scanner.tscn" id="8_xvyn7"]
 
-[sub_resource type="Curve" id="Curve_0qy4j"]
-_data = [Vector2(0, 0), 0.0, 2.7592692, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_ijfcc"]
+_data = [Vector2(0, 0), 0.0, 2.7325935, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yw0t6"]
@@ -21,9 +24,11 @@ size = Vector3(0.036132813, 0.08276367, 0.14422607)
 
 [node name="Player" type="RigidBody3D" unique_id=676303293 node_paths=PackedStringArray("_collision_shapes")]
 collision_layer = 2
+collision_mask = 5
 axis_lock_linear_z = true
+linear_damp_mode = 1
 script = ExtResource("1_jvoiy")
-_recoil_turn_speed_recovery_curve = SubResource("Curve_0qy4j")
+_recoil_turn_speed_recovery_curve = SubResource("Curve_ijfcc")
 _collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2")]
 
 [node name="pistol" parent="." unique_id=26733741 instance=ExtResource("1_b8b5d")]
@@ -44,6 +49,8 @@ shape = SubResource("BoxShape3D_yw0t6")
 transform = Transform3D(-4.371139e-08, -0.9892085, -0.1465147, 0, 0.14651468, -0.98920846, 0.99999994, -4.3239673e-08, -6.40436e-09, -0.044430587, -0.044439122, 0.010062309)
 shape = SubResource("BoxShape3D_jvoiy")
 
+[node name="HitboxModule" parent="CollisionShape3D2" unique_id=1971788381 instance=ExtResource("4_8v6aa")]
+
 [node name="FollowCam" type="Camera3D" parent="." unique_id=132913715]
 transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0.5, 2)
 
@@ -57,9 +64,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12045959, 0.048901588, 0)
 script = ExtResource("2_8f1qk")
 _primary_config = ExtResource("5_0qy4j")
 _secondary_config = ExtResource("6_8v6aa")
+_collision_mask = 17
 
-[node name="GroundCheck" type="ShapeCast3D" parent="." unique_id=1106964826]
-enabled = false
-target_position = Vector3(0, 0, 0)
+[node name="PlayerContactScanner" parent="." unique_id=1726755506 instance=ExtResource("8_xvyn7")]
+_enemy_hitbox_layer = 16
+
+[node name="HealthModule" parent="." unique_id=1785219419 instance=ExtResource("8_4pcbe")]
+
+[node name="HitboxModule" parent="." unique_id=731163395 instance=ExtResource("4_8v6aa")]
+collision_layer = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxModule" unique_id=715408339]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.022813175, 0.030151365, 0.010062313)
+shape = SubResource("BoxShape3D_yw0t6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitboxModule" unique_id=596095142]
+transform = Transform3D(-4.371139e-08, -0.9892085, -0.1465147, 0, 0.14651468, -0.98920846, 0.99999994, -4.3239673e-08, -6.40436e-09, -0.044430587, -0.044439122, 0.010062309)
+shape = SubResource("BoxShape3D_jvoiy")
 
 [editable path="pistol"]

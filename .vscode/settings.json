@@ -1,9 +1,10 @@
 {
   "godotTools.editorPath.godot4": "/mnt/5f88db39-9b7b-4ada-a101-3976c215614c/Personal/godot/Godot_v4.7.1-stable_linux.x86_64",
   "editor.formatOnSave": true,
-  "godotFormatter.safe": false,
+  "godotFormatter.verifyStructure": false,
   "godotFormatter.reorderCode": true,
   "godotFormatter.useSpaces": false,
+  "godotFormatter.enabled": true,
   "files.exclude": {
     // "**/.git": true,
     "**/.svn": true,

@@ -6,7 +6,8 @@
 [ext_resource type="Resource" uid="uid://c3hwftjup8440" path="res://src/resources/bullets/projectiles/projectile_2.tres" id="4_8mn55"]
 [ext_resource type="Resource" uid="uid://8igbvfkswnw3" path="res://src/resources/bullets/hitscan/hitscan_1.tres" id="5_8mn55"]
 [ext_resource type="Resource" uid="uid://dsqkxusu2kct5" path="res://src/resources/bullets/hitscan/hitscan_2.tres" id="6_bgosa"]
+[ext_resource type="Resource" uid="uid://fekiechyac2j" path="res://src/resources/bullets/projectiles/projectile_3.tres" id="7_bgosa"]
 
 [node name="Bullets" type="Node" unique_id=1000218288]
 script = ExtResource("1_l01qw")
-_bullet_configs = Array[ExtResource("2_tae01")]([ExtResource("3_30lwh"), ExtResource("4_8mn55"), ExtResource("5_8mn55"), ExtResource("6_bgosa")])
+_bullet_configs = Array[ExtResource("2_tae01")]([ExtResource("3_30lwh"), ExtResource("4_8mn55"), ExtResource("5_8mn55"), ExtResource("6_bgosa"), ExtResource("7_bgosa")])

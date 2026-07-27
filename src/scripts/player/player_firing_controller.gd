@@ -31,10 +31,7 @@ func _process(delta: float) -> void:
 			handler.on_fire_pressed(_primary_config)
 
 		_primary_fire_hold_timer += delta
-		handler.on_fire_held(
-			_primary_config,
-			_primary_fire_hold_timer,
-		)
+		handler.on_fire_held(_primary_config, _primary_fire_hold_timer)
 	else:
 		if _primary_fire_hold_timer > 0:
 			_get_handler(_primary_config).on_fire_released(
@@ -44,16 +41,16 @@ func _process(delta: float) -> void:
 		_primary_fire_hold_timer = 0.0
 
 	# Secondary fire
-	if (Input.is_action_just_pressed("secondary_fire") || Input.is_action_pressed("secondary_fire")):
+	if (
+		Input.is_action_just_pressed("secondary_fire") \
+				|| Input.is_action_pressed("secondary_fire")
+	):
 		var handler := _get_handler(_secondary_config)
 		if Input.is_action_just_pressed("secondary_fire"):
 			handler.on_fire_pressed(_secondary_config)
 
 		_secondary_fire_hold_timer += delta
-		_get_handler(_secondary_config).on_fire_held(
-			_secondary_config,
-			_secondary_fire_hold_timer,
-		)
+		_get_handler(_secondary_config).on_fire_held(_secondary_config, _secondary_fire_hold_timer)
 	else:
 		if _secondary_fire_hold_timer > 0:
 			_get_handler(_secondary_config).on_fire_released(

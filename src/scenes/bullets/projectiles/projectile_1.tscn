@@ -21,5 +21,9 @@ surface_material_override/0 = ExtResource("2_yqprg")
 enabled = false
 exclude_parent = false
 target_position = Vector3(0.5, 0, 0)
+collide_with_areas = true
 
 [node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("3_o5fnn")]
+
+[node name="EndMarker" type="Marker3D" parent="." unique_id=405027228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5034094, 0, 0)

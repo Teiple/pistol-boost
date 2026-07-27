@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://ckw1w75pggyhw"]
+
+[ext_resource type="Script" uid="uid://dyncqoeg1mxvv" path="res://src/scripts/enemies/turret.gd" id="1_ks2hp"]
+[ext_resource type="Resource" uid="uid://d1htco13wk15u" path="res://src/resources/firing/enemy_turret_firing_01.tres" id="2_p7447"]
+[ext_resource type="PackedScene" uid="uid://dq14655v1w3sn" path="res://src/scenes/modules/hitbox_module.tscn" id="3_p7447"]
+[ext_resource type="PackedScene" uid="uid://b5ex3uugjpstn" path="res://src/scenes/modules/health_module.tscn" id="4_t4cm6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_f2je7"]
+radius = 0.25
+height = 0.5
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p7447"]
+top_radius = 0.052246094
+bottom_radius = 0.052246094
+height = 0.16608886
+radial_segments = 8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f2je7"]
+radius = 0.2866609
+
+[sub_resource type="BoxMesh" id="BoxMesh_f2je7"]
+size = Vector3(0.4729004, 0.3713379, 0.46899414)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f2je7"]
+size = Vector3(0.5214844, 0.41333008, 0.51464844)
+
+[node name="Turret" type="Node3D" unique_id=2044973933]
+script = ExtResource("1_ks2hp")
+firing_config = ExtResource("2_p7447")
+firing_collision_mask = 9
+
+[node name="Cannon" type="MeshInstance3D" parent="." unique_id=2103985603]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5095222, 0)
+mesh = SubResource("SphereMesh_f2je7")
+
+[node name="CannonMuzzleMesh" type="MeshInstance3D" parent="Cannon" unique_id=1068272119]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.29892612, 3.1262815e-09, 0)
+mesh = SubResource("CylinderMesh_p7447")
+
+[node name="CannonMuzzle" type="Marker3D" parent="Cannon" unique_id=471844614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38256013, 6.5260917e-09, 0)
+
+[node name="HitboxModule" parent="Cannon" unique_id=1415504677 instance=ExtResource("3_p7447")]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cannon/HitboxModule" unique_id=1995120054]
+shape = SubResource("SphereShape3D_f2je7")
+debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
+
+[node name="HitboxModule" parent="Cannon/HitboxModule/CollisionShape3D" unique_id=731163395 instance=ExtResource("3_p7447")]
+
+[node name="Base" type="MeshInstance3D" parent="." unique_id=174339589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1846689, 0)
+mesh = SubResource("BoxMesh_f2je7")
+
+[node name="HitboxModule" parent="Base" unique_id=2086472142 instance=ExtResource("3_p7447")]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/HitboxModule" unique_id=1306012243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005004883, 0)
+shape = SubResource("BoxShape3D_f2je7")
+debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
+
+[node name="HitboxModule" parent="Base/HitboxModule/CollisionShape3D" unique_id=1350500620 instance=ExtResource("3_p7447")]
+
+[node name="HealthModule" parent="." unique_id=1785219419 instance=ExtResource("4_t4cm6")]

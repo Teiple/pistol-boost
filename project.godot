@@ -53,8 +53,10 @@ secondary_fire={
 [layer_names]
 
 3d_physics/layer_1="Environment"
-3d_physics/layer_2="Player"
-3d_physics/layer_3="Enemy"
+3d_physics/layer_2="PlayerPhysics"
+3d_physics/layer_3="EnemyPhysics"
+3d_physics/layer_4="PlayerHitBox"
+3d_physics/layer_5="EnemyHitBox"
 
 [physics]
 

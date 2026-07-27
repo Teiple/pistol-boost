@@ -4,11 +4,13 @@ enum DamageType {
 	BULLET = 0,
 	MELEE = 1,
 	EXPLOSION = 2,
+	TOUCH = 3,
 }
 enum ProjectileModel {
 	HITSCAN = 0,
 	PROJECTILE = 1,
 }
+
 
 class Hit:
 	var damage: float = 0.0
@@ -20,12 +22,12 @@ class Hit:
 
 
 	func _init(
-			_damage: float,
-			_damage_type: DamageType,
-			_position: Vector3,
-			_normal: Vector3,
-			_direction: Vector3,
-			_impact_force: float,
+		_damage: float,
+		_damage_type: DamageType,
+		_position: Vector3,
+		_normal: Vector3,
+		_direction: Vector3,
+		_impact_force: float,
 	) -> void:
 		damage = _damage
 		damage_type = _damage_type
