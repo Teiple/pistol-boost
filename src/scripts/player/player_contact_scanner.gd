@@ -1,8 +1,8 @@
 class_name PlayerContactScanner
 extends Node3D
 
-@export var _enemy_hit_force := 5
-@export var _enemy_hit_damage := 2
+@export var _enemy_hit_force := 4.0
+@export var _enemy_hit_damage := 2.0
 @export var _enemy_hit_cooldown := 0.5
 @export var _contact_check: ShapeCast3D
 

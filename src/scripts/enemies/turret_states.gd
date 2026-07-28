@@ -100,6 +100,8 @@ class TrackState extends TurretState:
 			deg_to_rad(unit.cannon_angle_degrees_max),
 		)
 
+		var arc := Quaternion(-unit.cannon.global_basis.z, aim_direction)
+
 		unit.cannon.rotation.z = move_toward(
 			unit.cannon.rotation.z,
 			angle_to_target,

@@ -104,4 +104,6 @@ func get_collision_shapes() -> Array[CollisionShape3D]:
 func _on_damage_taken(health: HealthModule):
 	var atk := health.get_last_hit()
 	Assert.not_null(atk, "Damaged unit should have last attack hit saved")
-	apply_impulse(atk.direction * atk.impact_force)
+	if atk.damage_type == Attack.DamageType.TOUCH:
+		linear_velocity *= 0
+		apply_impulse(atk.direction * atk.impact_force)
