@@ -40,6 +40,9 @@ static func _find_array_on(node: Node, module_name: String) -> Array:
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
 	if _is_unique:
 		if !module_owner().has_meta(_name()):
 			module_owner().set_meta(_name(), self)

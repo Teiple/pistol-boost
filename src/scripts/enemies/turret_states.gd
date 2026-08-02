@@ -31,7 +31,7 @@ func _init(_unit: EnemyTurret) -> void:
 	unit = _unit
 	statemachine = unit.statemachine
 	unit_health = HealthModule.find_on(unit)
-	Assert.not_null("Turret unit should have HealthModule")
+	Assert.not_null(unit_health, "Turret unit should have HealthModule")
 	unit_health.died.connect(goto_die)
 
 
@@ -43,19 +43,6 @@ func goto_die(_health: HealthModule) -> void:
 class IdleState extends TurretState:
 	func get_state_id() -> State:
 		return State.IDLE
-
-
-	func update(dt: float):
-		unit.cannon.rotation.z = move_toward(
-			unit.cannon.rotation.z,
-			deg_to_rad(unit.cannon_neutral_angle_degrees),
-			ROTATE_SPEED * dt,
-		)
-
-		if is_zero_approx(
-			angle_difference(unit.cannon.rotation.z, deg_to_rad(unit.cannon_neutral_angle_degrees))
-		):
-			statemachine.goto(State.TRACK)
 
 
 class FireState extends TurretState:
@@ -86,31 +73,59 @@ class TrackState extends TurretState:
 
 
 	func update(dt: float):
-		var aim_direction := aim_resolver.resolve_direction(unit.cannon_muzzle, Global.get_player())
+		# unit.cannon_yaw_offset.angle_offset += Vector3.UP * 2.0 * dt
+		# unit.cannon_pitch_offset.angle_offset += Vector3.RIGHT * 2.0 * dt
+		var aim_direction := aim_resolver.resolve_direction(unit.cannon_pivot, Global.get_player())
 
 		var local_aim_direction := unit.global_basis.inverse() * aim_direction
-		var angle_to_target := atan2(local_aim_direction.y, local_aim_direction.x)
+		var horizontal_length := Vector2(local_aim_direction.x, local_aim_direction.z).length()
 
-		if angle_to_target < 0 && angle_to_target <= -PI / 2:
-			angle_to_target += TAU
+		# Yaw is undefined while aiming vertically, so preserve the current yaw there.
+		var target_yaw := unit.cannon_yaw_offset.angle_offset.y
+		if !is_zero_approx(horizontal_length):
+			target_yaw = atan2(local_aim_direction.x, local_aim_direction.z)
 
-		angle_to_target = clampf(
-			angle_to_target,
-			deg_to_rad(unit.cannon_angle_degrees_min),
-			deg_to_rad(unit.cannon_angle_degrees_max),
+		var target_pitch := atan2(local_aim_direction.y, horizontal_length)
+
+		var minimum_pitch := deg_to_rad(unit.cannon_pitch_degrees_min)
+		var maximum_pitch := deg_to_rad(unit.cannon_pitch_degrees_max)
+		var target_pitch_in_limits := (
+			target_pitch >= minimum_pitch && target_pitch <= maximum_pitch
 		)
 
-		var arc := Quaternion(-unit.cannon.global_basis.z, aim_direction)
+		var clamped_pitch := clampf(target_pitch, minimum_pitch, maximum_pitch)
 
-		unit.cannon.rotation.z = move_toward(
-			unit.cannon.rotation.z,
-			angle_to_target,
+		var pitch_at_limit = (
+			absf(unit.cannon_pitch_offset.angle_offset.x - minimum_pitch) < 0.001
+			|| absf(unit.cannon_pitch_offset.angle_offset.x - maximum_pitch) < 0.001
+		)
+
+		unit.cannon_yaw_offset.angle_offset.y = rotate_toward(
+			unit.cannon_yaw_offset.angle_offset.y,
+			target_yaw,
 			ROTATE_SPEED * dt,
 		)
 
-		if absf(angle_difference(unit.cannon.rotation.z, angle_to_target)) <= deg_to_rad(
-			unit.firing_angle_tolerance_degrees
-		) && unit.firing_controller.can_start_firing(unit.firing_config):
+		if target_pitch_in_limits || !pitch_at_limit:
+			unit.cannon_pitch_offset.angle_offset.x = move_toward(
+				unit.cannon_pitch_offset.angle_offset.x,
+				clamped_pitch,
+				ROTATE_SPEED * dt,
+			)
+
+		var firing_angle_tolerance := deg_to_rad(unit.firing_angle_tolerance_degrees)
+		var is_yaw_aligned := (
+			absf(angle_difference(unit.cannon_yaw_offset.angle_offset.y, target_yaw))
+			<= firing_angle_tolerance
+		)
+		var is_pitch_aligned := (
+			absf(unit.cannon_pitch_offset.angle_offset.x - clamped_pitch) <= firing_angle_tolerance
+		)
+
+		if (
+			target_pitch_in_limits && is_yaw_aligned && is_pitch_aligned
+			&& unit.firing_controller.can_start_firing(unit.firing_config)
+		):
 			statemachine.goto(State.FIRE)
 			return
 

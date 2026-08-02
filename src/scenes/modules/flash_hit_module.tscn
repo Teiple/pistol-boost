@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ciw4yi3lcb00v"]
+
+[ext_resource type="Script" uid="uid://3k4cjojbm2mr" path="res://src/scripts/modules/flash_hit_module.gd" id="1_aormn"]
+[ext_resource type="Material" uid="uid://bw1gu8r8xx3x" path="res://src/resources/materials/flash_effect.tres" id="2_8f2md"]
+
+[sub_resource type="Curve" id="Curve_wf735"]
+_data = [Vector2(0, 0), 0.0, 19.326166, 0, 0, Vector2(0.06676558, 1), 0.0, 0.0, 0, 0, Vector2(0.38130563, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="FlashHitModule" type="Node3D" unique_id=1876963050]
+script = ExtResource("1_aormn")
+_flash_material = ExtResource("2_8f2md")
+_flash_curve = SubResource("Curve_wf735")
+metadata/_custom_type_script = "uid://3k4cjojbm2mr"

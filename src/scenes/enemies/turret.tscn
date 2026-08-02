@@ -2,67 +2,116 @@
 
 [ext_resource type="Script" uid="uid://dyncqoeg1mxvv" path="res://src/scripts/enemies/turret.gd" id="1_ks2hp"]
 [ext_resource type="Resource" uid="uid://d1htco13wk15u" path="res://src/resources/firing/enemy_turret_firing_01.tres" id="2_p7447"]
-[ext_resource type="PackedScene" uid="uid://dq14655v1w3sn" path="res://src/scenes/modules/hitbox_module.tscn" id="3_p7447"]
 [ext_resource type="PackedScene" uid="uid://b5ex3uugjpstn" path="res://src/scenes/modules/health_module.tscn" id="4_t4cm6"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_f2je7"]
-radius = 0.25
-height = 0.5
-radial_segments = 8
-rings = 4
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_p7447"]
-top_radius = 0.052246094
-bottom_radius = 0.052246094
-height = 0.16608886
-radial_segments = 8
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_f2je7"]
-radius = 0.2866609
-
-[sub_resource type="BoxMesh" id="BoxMesh_f2je7"]
-size = Vector3(0.4729004, 0.3713379, 0.46899414)
+[ext_resource type="PackedScene" uid="uid://ct7hfbhlwbmld" path="res://assets/models/turret.glb" id="5_4qr7k"]
+[ext_resource type="PackedScene" uid="uid://dq14655v1w3sn" path="res://src/scenes/modules/hitbox_module.tscn" id="6_4bymq"]
+[ext_resource type="Script" uid="uid://t5t7dsq52ah1" path="res://src/scripts/util/bones/bone_rotation_offset.gd" id="6_ijno0"]
+[ext_resource type="Script" uid="uid://bn2lmxttywemp" path="res://src/scripts/util/bones/bone_position_offset.gd" id="7_wf735"]
+[ext_resource type="PackedScene" uid="uid://ciw4yi3lcb00v" path="res://src/scenes/modules/flash_hit_module.tscn" id="8_a0erb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2je7"]
-size = Vector3(0.5214844, 0.41333008, 0.51464844)
+size = Vector3(0.59399414, 0.49414063, 0.66430664)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_21c62"]
+radius = 0.33023143
 
 [node name="Turret" type="Node3D" unique_id=2044973933]
 script = ExtResource("1_ks2hp")
 firing_config = ExtResource("2_p7447")
 firing_collision_mask = 9
 
-[node name="Cannon" type="MeshInstance3D" parent="." unique_id=2103985603]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.5095222, 0)
-mesh = SubResource("SphereMesh_f2je7")
+[node name="turret" parent="." unique_id=1413266096 instance=ExtResource("5_4qr7k")]
 
-[node name="CannonMuzzleMesh" type="MeshInstance3D" parent="Cannon" unique_id=1068272119]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.29892612, 3.1262815e-09, 0)
-mesh = SubResource("CylinderMesh_p7447")
+[node name="BoneRotationOffsetBody" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1676714596) index="1" unique_id=1449169885]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40000004, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_ijno0")
+_target_bone = "body"
 
-[node name="CannonMuzzle" type="Marker3D" parent="Cannon" unique_id=471844614]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38256013, 6.5260917e-09, 0)
+[node name="BoneRotationOffsetHead" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1676714596) index="2" unique_id=1823944450]
+unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(-1, -1.136868e-13, 1.1046698e-06, 1.1045801e-06, 0.012751098, 0.9999186, -1.4085799e-08, 0.99991834, -0.012751101, 0, 0.7087796, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("6_ijno0")
+_target_bone = "head"
 
-[node name="HitboxModule" parent="Cannon" unique_id=1415504677 instance=ExtResource("3_p7447")]
+[node name="BonePositionOffsetHeadTip" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1676714596) index="3" unique_id=1431563014]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, -1.09245946e-13, -9.5367375e-07, -9.53674e-07, -2.8871e-08, -0.9999998, 1.7097435e-14, 0.9999996, -2.3283064e-08, -6.3962724e-14, 0.7136101, 0.3739749)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("7_wf735")
+_target_bone = "tip"
+metadata/_custom_type_script = "uid://bn2lmxttywemp"
+
+[node name="BoneCannonMuzzle" type="ModifierBoneTarget3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1676714596) index="4" unique_id=1817221065]
+transform = Transform3D(1, -1.09245946e-13, -9.5367375e-07, -9.53674e-07, -2.8871e-08, -0.9999998, 1.7097435e-14, 0.9999996, -2.3283064e-08, -6.3962724e-14, 0.7136101, 0.3739749)
+bone_name = "tip"
+bone = 3
+
+[node name="CannonMuzzle" type="Marker3D" parent="turret/turret_rig/Skeleton3D/BoneCannonMuzzle" unique_id=1670993532]
+unique_name_in_owner = true
+transform = Transform3D(-7.54979e-08, 1, 1.509958e-07, 1, 7.54979e-08, 1.4079876e-15, -9.991879e-15, 1.509958e-07, -1, 0, 0.08454007, 0)
+
+[node name="BaseHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1676714596) index="5" unique_id=196940778 instance=ExtResource("6_4bymq")]
 collision_layer = 16
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cannon/HitboxModule" unique_id=1995120054]
-shape = SubResource("SphereShape3D_f2je7")
-debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
-
-[node name="HitboxModule" parent="Cannon/HitboxModule/CollisionShape3D" unique_id=731163395 instance=ExtResource("3_p7447")]
-
-[node name="Base" type="MeshInstance3D" parent="." unique_id=174339589]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1846689, 0)
-mesh = SubResource("BoxMesh_f2je7")
-
-[node name="HitboxModule" parent="Base" unique_id=2086472142 instance=ExtResource("3_p7447")]
-collision_layer = 16
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Base/HitboxModule" unique_id=1306012243]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005004883, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="turret/turret_rig/Skeleton3D/BaseHitBox" unique_id=616800066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2529297, 0)
 shape = SubResource("BoxShape3D_f2je7")
 debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
-[node name="HitboxModule" parent="Base/HitboxModule/CollisionShape3D" unique_id=1350500620 instance=ExtResource("3_p7447")]
+[node name="HeadHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1676714596) index="6" unique_id=1100055309 instance=ExtResource("6_4bymq")]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="turret/turret_rig/Skeleton3D/HeadHitBox" unique_id=1912331386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6999133, 0)
+shape = SubResource("SphereShape3D_21c62")
+debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
 [node name="HealthModule" parent="." unique_id=1785219419 instance=ExtResource("4_t4cm6")]
+
+[node name="FlashHitModule" parent="." unique_id=1876963050 node_paths=PackedStringArray("_health_component", "_meshes") instance=ExtResource("8_a0erb")]
+_health_component = NodePath("../HealthModule")
+_meshes = [NodePath("../turret/turret_rig/Skeleton3D/turret_mesh")]
+
+[editable path="turret"]

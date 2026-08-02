@@ -3,7 +3,7 @@ extends Node3D
 
 @export var _enemy_hit_force := 4.0
 @export var _enemy_hit_damage := 2.0
-@export var _enemy_hit_cooldown := 0.5
+@export var _enemy_hit_cooldown := 0.1
 @export var _contact_check: ShapeCast3D
 
 @export_flags_3d_physics var _enemy_hitbox_layer := 1

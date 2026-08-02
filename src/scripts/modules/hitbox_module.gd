@@ -1,3 +1,4 @@
+@tool
 class_name HitBoxModule
 extends Module
 
@@ -20,3 +21,12 @@ func take_hit(hit: Attack.Hit) -> void:
 	hit.damage *= _damage_multiplier
 	hit.impact_force *= _damage_multiplier
 	health_mod.take_hit(hit)
+
+
+func _on_child_entered_tree(node: Node) -> void:
+	if Engine.is_editor_hint():
+		return
+
+	var col_shape := node as CollisionShape3D
+	if col_shape != null:
+		col_shape.debug_color = Color("c0e500c8")

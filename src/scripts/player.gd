@@ -19,6 +19,7 @@ var _health: HealthModule
 @onready var _follow_cam: Camera3D = $FollowCam
 @onready var _recoil_impulse_point: Node3D = $RecoilImpulsePoint
 @onready var _contact_scanner: PlayerContactScanner = $PlayerContactScanner
+@onready var _anim_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready() -> void:
@@ -88,6 +89,9 @@ func apply_recoil(recoil_force: float) -> void:
 
 	# reduce turning power per shot so the player won't recover their too quickly
 	_turn_speed_multiplier *= 1.0 - _recoil_turn_speed_damping
+
+	_anim_player.stop()
+	_anim_player.play("fire")
 
 	apply_impulse(
 		recoil_direction * recoil_force,

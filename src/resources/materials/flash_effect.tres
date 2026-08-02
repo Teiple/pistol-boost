@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bw1gu8r8xx3x"]
+
+[ext_resource type="Shader" uid="uid://bx8ox6mb01w2" path="res://src/scripts/shaders/flash_shader.gdshader" id="1_pwy2l"]
+
+[resource]
+render_priority = 30
+shader = ExtResource("1_pwy2l")
+shader_parameter/outer_color = Color(1, 1, 1, 1)
+shader_parameter/inner_color = Color(1, 1, 1, 0.39215687)
+shader_parameter/fresnel_amount = 1.0

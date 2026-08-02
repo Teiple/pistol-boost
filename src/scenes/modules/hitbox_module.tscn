@@ -9,3 +9,5 @@ monitoring = false
 monitorable = false
 script = ExtResource("1_lt2ow")
 _is_unique = false
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

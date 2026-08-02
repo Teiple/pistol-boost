@@ -37,6 +37,10 @@ settings/3d/volumetric_defaults/thickness=0.0
 
 enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 primary_fire={
