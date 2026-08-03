@@ -120,7 +120,8 @@ transform = Transform3D(-4.371139e-08, -0.98129296, -0.19252054, 0, 0.19252053, 
 shape = SubResource("BoxShape3D_jvoiy")
 
 [node name="FollowCam" type="Camera3D" parent="." unique_id=132913715]
-transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715572, 0, -0.08715572, 0.9961947, 0, 0.3, 3)
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 2.5, 12)
+fov = 25.0
 
 [node name="RecoilImpulsePoint" type="Node3D" parent="." unique_id=1182736180]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025126114, 0.0073890314, 0)
@@ -152,8 +153,16 @@ transform = Transform3D(-4.371139e-08, -0.97584033, -0.21848503, 0, 0.21848503, 
 shape = SubResource("BoxShape3D_xvyn7")
 debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
-[node name="FlashHitModule" parent="." unique_id=1876963050 node_paths=PackedStringArray("_health_component", "_meshes") instance=ExtResource("9_xvyn7")]
-_health_component = NodePath("../HealthModule")
+[node name="FlashHitModule" parent="." unique_id=1876963050 node_paths=PackedStringArray("_hitbox_module", "_meshes") instance=ExtResource("9_xvyn7")]
+_hitbox_module = NodePath("../HitboxModule")
 _meshes = [NodePath("../Model/pistol_root"), NodePath("../Model/pistol_root/pistol_slide"), NodePath("../Model/pistol_root/pistol_trigger")]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=502903815]
+current = true
+
+[node name="FiringSoundPlayer" type="AudioStreamPlayer3D" parent="." unique_id=127123517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.078021705, 0.03938238, 0)
+attenuation_model = 3
+max_polyphony = 3
 
 [editable path="Model"]

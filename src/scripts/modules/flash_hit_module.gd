@@ -1,7 +1,7 @@
 class_name FlashHitModule
 extends Module
 
-@export var _health_component: HealthModule
+@export var _hitbox_module: HitBoxModule
 @export var _meshes: Array[MeshInstance3D]
 @export var _flash_material: ShaderMaterial
 @export var _flash_duration: float = 1.0
@@ -17,16 +17,16 @@ static func _name() -> String:
 
 
 func _ready() -> void:
-	Assert.not_null(_health_component)
+	Assert.not_null(_hitbox_module)
 	Assert.non_empty_array(_meshes)
 
 	for mesh in _meshes:
 		mesh.material_overlay = _flash_material
 	_interpolate_flash_amount(0)
-	_health_component.damage_taken.connect(_on_damage_taken)
+	_hitbox_module.hit_taken.connect(_on_hit_taken)
 
 
-func _on_damage_taken(_health_module: HealthModule):
+func _on_hit_taken(_atk_hit: Attack.Hit):
 	var tween := create_tween()
 	tween \
 			.tween_method(_interpolate_flash_amount, 0.0, 1.0, _flash_duration) \

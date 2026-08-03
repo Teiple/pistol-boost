@@ -2,6 +2,8 @@
 class_name HitBoxModule
 extends Module
 
+signal hit_taken(hit: Attack.Hit)
+
 @export var _damage_multiplier := 1.0
 
 
@@ -21,6 +23,7 @@ func take_hit(hit: Attack.Hit) -> void:
 	hit.damage *= _damage_multiplier
 	hit.impact_force *= _damage_multiplier
 	health_mod.take_hit(hit)
+	hit_taken.emit(hit)
 
 
 func _on_child_entered_tree(node: Node) -> void:

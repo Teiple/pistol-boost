@@ -43,6 +43,8 @@ func fire(firing_config: FiringConfig, apply_recoil: bool = true) -> void:
 
 	if apply_recoil:
 		_controller.apply_recoil(standard_config.recoil_force_per_shot)
+	if firing_config.firing_sound != null:
+		_controller.play_firing_sound(firing_config.firing_sound)
 
 
 func on_weapon_interrupted() -> void:

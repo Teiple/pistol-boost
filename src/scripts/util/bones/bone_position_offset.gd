@@ -7,6 +7,8 @@ extends SkeletonModifier3D
 @export var _target_bone: String = "":
 	set = set_target_bone
 
+var _bone_idx := -1
+
 
 func _validate_property(property: Dictionary) -> void:
 	if enabled:
@@ -30,6 +32,8 @@ func set_target_bone(target_bone: String) -> void:
 		if bone_idx < 0:
 			return
 
+		_bone_idx = bone_idx
+
 		transform = skeleton.get_bone_global_pose(bone_idx)
 
 
@@ -38,16 +42,16 @@ func _process_modification_with_delta(_delta: float) -> void:
 	if skeleton == null:
 		return
 
-	var bone_idx := skeleton.find_bone(_target_bone)
-	if bone_idx < 0:
+	if _bone_idx < 0:
+		_bone_idx = skeleton.find_bone(_target_bone)
 		return
 
 	if !enabled:
-		transform = skeleton.get_bone_global_pose(bone_idx)
+		transform = skeleton.get_bone_global_pose(_bone_idx)
 		return
 
-	var prev_pos := skeleton.get_bone_pose_position(bone_idx)
+	var prev_pos := skeleton.get_bone_pose_position(_bone_idx)
 	var override_pos := prev_pos + position_offset
 
-	skeleton.set_bone_pose_position(bone_idx, override_pos)
-	transform = skeleton.get_bone_global_pose(bone_idx)
+	skeleton.set_bone_pose_position(_bone_idx, override_pos)
+	transform = skeleton.get_bone_global_pose(_bone_idx)

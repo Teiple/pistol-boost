@@ -72,6 +72,10 @@ func apply_recoil(recoil_force: float) -> void:
 	_player.apply_recoil(recoil_force)
 
 
+func play_firing_sound(sound: Sound) -> void:
+	_player.firing_sound_play(sound.stream, linear_to_db(sound.base_volume))
+
+
 func _get_handler(firing_config: FiringConfig) -> PlayerFiringHandler:
 	Assert.not_null(firing_config, "Firing config should not be null")
 	if firing_config is BurstFiringConfig:

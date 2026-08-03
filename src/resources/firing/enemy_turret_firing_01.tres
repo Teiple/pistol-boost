@@ -1,12 +1,27 @@
 [gd_resource type="Resource" script_class="BurstFiringConfig" format=3 uid="uid://d1htco13wk15u"]
 
 [ext_resource type="Resource" uid="uid://cnf6mqbf23hsg" path="res://src/resources/bullets/projectiles/projectile_3.tres" id="1_jsh8q"]
+[ext_resource type="Script" uid="uid://b2tmh0gdllrtk" path="res://src/scripts/resources/sound.gd" id="2_j3shb"]
 [ext_resource type="Script" uid="uid://dc51s6uogj87w" path="res://src/scripts/resources/burst_firing_config.gd" id="2_jsh8q"]
+[ext_resource type="AudioStream" uid="uid://de2u43qj0eo6l" path="res://assets/sounds/weapons/fire_laser_01.wav" id="3_2jnii"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0hlw3"]
+random_pitch = 1.2599211
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("3_2jnii")
+
+[sub_resource type="Resource" id="Resource_xvyn7"]
+script = ExtResource("2_j3shb")
+stream = SubResource("AudioStreamRandomizer_0hlw3")
+base_volume = 0.1
+metadata/_custom_type_script = "uid://b2tmh0gdllrtk"
 
 [resource]
 script = ExtResource("2_jsh8q")
 burst_size = 2
-burst_interval = 0.5
-burst_firerate = 7.0
+burst_interval = 1.2
+burst_firerate = 3.0
 bullet_config = ExtResource("1_jsh8q")
+firing_sound = SubResource("Resource_xvyn7")
 metadata/_custom_type_script = "uid://w045rc6ha212"

@@ -21,6 +21,7 @@ var firing_controller: EnemyFiringController = null
 @onready var cannon_muzzle: Node3D = %CannonMuzzle
 @onready var cannon_yaw_offset: BoneRotationOffset = %BoneRotationOffsetBody
 @onready var cannon_pitch_offset: BoneRotationOffset = %BoneRotationOffsetHead
+@onready var firing_sound_player: AudioStreamPlayer3D = $FiringSoundPlayer
 
 
 func _ready() -> void:
@@ -34,7 +35,11 @@ func _ready() -> void:
 		"Cannon neutral pitch should be within its pitch limits",
 	)
 
-	firing_controller = EnemyFiringController.new(firing_collision_mask, cannon_muzzle)
+	firing_controller = EnemyFiringController.new(
+		firing_collision_mask,
+		cannon_muzzle,
+		firing_sound_player,
+	)
 	statemachine = StateMachine.new()
 	statemachine.init_states(TurretState.get_all_states(self))
 	statemachine.goto(TurretState.State.TRACK)

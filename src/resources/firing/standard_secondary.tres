@@ -1,7 +1,20 @@
 [gd_resource type="Resource" script_class="StandardFiringConfig" format=3 uid="uid://dogaqaq18ao6r"]
 
 [ext_resource type="Resource" uid="uid://c3hwftjup8440" path="res://src/resources/bullets/projectiles/projectile_2.tres" id="1_o3k77"]
+[ext_resource type="Script" uid="uid://b2tmh0gdllrtk" path="res://src/scripts/resources/sound.gd" id="2_d4quw"]
 [ext_resource type="Script" uid="uid://c0otd3nyinyf7" path="res://src/scripts/resources/standard_firing_config.gd" id="2_o3k77"]
+[ext_resource type="AudioStream" uid="uid://db6itta6gs5b0" path="res://assets/sounds/weapons/fire_secondary.mp3" id="3_vbj23"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ytsb3"]
+random_pitch = 1.122462
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("3_vbj23")
+
+[sub_resource type="Resource" id="Resource_7ugrk"]
+script = ExtResource("2_d4quw")
+stream = SubResource("AudioStreamRandomizer_ytsb3")
+metadata/_custom_type_script = "uid://b2tmh0gdllrtk"
 
 [resource]
 script = ExtResource("2_o3k77")
@@ -9,4 +22,5 @@ bullets_per_ammo = 4
 spread_angle_degrees = 29.0
 recoil_force_per_shot = 7.0
 bullet_config = ExtResource("1_o3k77")
+firing_sound = SubResource("Resource_7ugrk")
 metadata/_custom_type_script = "uid://w045rc6ha212"

@@ -22,9 +22,6 @@ func start(firing_config: FiringConfig, muzzle_point: Node3D) -> void:
 		_start(firing_config, muzzle_point)
 
 
-@abstract func _start(firing_config: FiringConfig, muzzle_point: Node3D) -> void
-
-
 func update(_delta: float) -> void:
 	pass
 
@@ -49,3 +46,9 @@ func fire(firing_config: FiringConfig, muzzle_point: Node3D) -> void:
 			)
 
 			Bullets.spawn_bullet(spawn_context)
+
+	if firing_config.firing_sound != null:
+		_controller.play_firing_sound(firing_config.firing_sound)
+
+
+@abstract func _start(firing_config: FiringConfig, muzzle_point: Node3D) -> void

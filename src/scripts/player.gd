@@ -20,6 +20,7 @@ var _health: HealthModule
 @onready var _recoil_impulse_point: Node3D = $RecoilImpulsePoint
 @onready var _contact_scanner: PlayerContactScanner = $PlayerContactScanner
 @onready var _anim_player: AnimationPlayer = $AnimationPlayer
+@onready var _firing_sound_player: AudioStreamPlayer3D = $FiringSoundPlayer
 
 
 func _ready() -> void:
@@ -103,6 +104,17 @@ func apply_recoil(recoil_force: float) -> void:
 
 func get_collision_shapes() -> Array[CollisionShape3D]:
 	return _collision_shapes
+
+
+func firing_sound_play(stream: AudioStream, volume_db: float) -> void:
+	Assert.not_null(stream)
+	_firing_sound_player.stream = stream
+	_firing_sound_player.volume_db = volume_db
+	_firing_sound_player.play()
+
+
+func get_unprojected_position() -> Vector2:
+	return _follow_cam.unproject_position(global_position)
 
 
 func _on_damage_taken(health: HealthModule):
