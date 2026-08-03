@@ -76,6 +76,7 @@ transform = Transform3D(-7.54979e-08, 1, 1.509958e-07, 1, 7.54979e-08, 1.4079876
 
 [node name="BaseHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="9" unique_id=196940778 instance=ExtResource("6_4bymq")]
 collision_layer = 16
+_damage_multiplier = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="turret/turret_rig/Skeleton3D/BaseHitBox" unique_id=616800066]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4091888, 0)
@@ -84,6 +85,7 @@ debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
 [node name="RightLegsHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="10" unique_id=1742679842 instance=ExtResource("6_4bymq")]
 collision_layer = 16
+_damage_multiplier = 0.25
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="turret/turret_rig/Skeleton3D/RightLegsHitBox" unique_id=1707226435]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17512167, 0.15723568, 0)
@@ -92,6 +94,7 @@ debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
 [node name="LeftLegsHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="11" unique_id=1457840889 instance=ExtResource("6_4bymq")]
 collision_layer = 16
+_damage_multiplier = 0.25
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="turret/turret_rig/Skeleton3D/LeftLegsHitBox" unique_id=2058598710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.175, 0.157, 0)
