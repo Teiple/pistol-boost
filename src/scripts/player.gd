@@ -72,6 +72,10 @@ func _physics_process(_delta: float) -> void:
 		linear_velocity = linear_velocity.normalized() * _max_speed
 
 
+func get_follow_cam() -> Camera3D:
+	return _follow_cam
+
+
 func is_on_floor() -> bool:
 	return _contact_scanner.is_on_floor()
 

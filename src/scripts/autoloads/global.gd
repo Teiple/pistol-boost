@@ -39,6 +39,10 @@ func get_player() -> Player:
 	return _current_scene.get_node_or_null("Player") as Player
 
 
+func get_camera() -> Camera3D:
+	return get_player().get_follow_cam()
+
+
 func load_scene(path: String) -> void:
 	var packed_scene := ResourceLoader.load(path)
 	call_deferred("_load_scene", packed_scene)
