@@ -66,7 +66,7 @@ func _validate_unique_bullet_config(
 
 	var bullet_registry := registries[0]
 	Assert.not_null(bullet_registry, "Bullet registry should not be null")
-	var key := Pools.pool_key(bullet_registry.group, bullet_registry.id)
+	var key := Pools.pool_key(bullet_registry.group, bullet_registry.id) as String
 	var config_path := bullet_config.resource_path
 
 	if key in registered_bullet_config_paths:
