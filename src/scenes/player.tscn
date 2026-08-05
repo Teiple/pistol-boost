@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b5ex3uugjpstn" path="res://src/scenes/modules/health_module.tscn" id="8_4pcbe"]
 [ext_resource type="PackedScene" uid="uid://bjg4gkrpmji4l" path="res://src/scenes/player_contact_scanner.tscn" id="8_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://ciw4yi3lcb00v" path="res://src/scenes/modules/flash_hit_module.tscn" id="9_xvyn7"]
+[ext_resource type="PackedScene" uid="uid://kwevmea8lms4" path="res://src/scenes/modules/player_health_bar.tscn" id="10_0hlw3"]
 
 [sub_resource type="Curve" id="Curve_ijfcc"]
 _data = [Vector2(0, 0), 0.0, 2.7325935, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -99,13 +100,13 @@ _collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2")
 [node name="Model" parent="." unique_id=26733741 instance=ExtResource("1_b8b5d")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="pistol_root" parent="Model" index="0" unique_id=2070201513]
+[node name="pistol_root" parent="Model" index="0" unique_id=142712869]
 surface_material_override/0 = SubResource("StandardMaterial3D_xvyn7")
 
-[node name="pistol_slide" parent="Model/pistol_root" index="0" unique_id=225125929]
+[node name="pistol_slide" parent="Model/pistol_root" index="0" unique_id=735551584]
 surface_material_override/0 = SubResource("StandardMaterial3D_xvyn7")
 
-[node name="pistol_trigger" parent="Model/pistol_root" index="1" unique_id=229455623]
+[node name="pistol_trigger" parent="Model/pistol_root" index="1" unique_id=1558486744]
 surface_material_override/0 = SubResource("StandardMaterial3D_xvyn7")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=514507662]
@@ -164,5 +165,7 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.078021705, 0.03938238, 0)
 attenuation_model = 3
 max_polyphony = 3
+
+[node name="PlayerHealthBar" parent="." unique_id=2122614874 instance=ExtResource("10_0hlw3")]
 
 [editable path="Model"]

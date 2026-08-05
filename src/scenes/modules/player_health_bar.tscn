@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://kwevmea8lms4"]
+
+[ext_resource type="Script" uid="uid://ohmoiovxm1g8" path="res://src/scripts/modules/health_bar_module.gd" id="1_igw5u"]
+[ext_resource type="Texture2D" uid="uid://c536mle0vy05k" path="res://assets/ui/health_ring_under.png" id="2_dtf56"]
+[ext_resource type="Texture2D" uid="uid://bxdf8x7wsftoa" path="res://assets/ui/health_ring_fill.png" id="3_1bk5w"]
+
+[node name="PlayerHealthBar" type="Node3D" unique_id=2122614874 node_paths=PackedStringArray("_bar")]
+script = ExtResource("1_igw5u")
+_bar = NodePath("Bar")
+
+[node name="Bar" type="TextureProgressBar" parent="." unique_id=2026065882]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+step = 0.001
+value = 75.0
+fill_mode = 5
+nine_patch_stretch = true
+texture_under = ExtResource("2_dtf56")
+texture_progress = ExtResource("3_1bk5w")

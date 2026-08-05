@@ -117,10 +117,6 @@ func firing_sound_play(stream: AudioStream, volume_db: float) -> void:
 	_firing_sound_player.play()
 
 
-func get_unprojected_position() -> Vector2:
-	return _follow_cam.unproject_position(global_position)
-
-
 func _on_damage_taken(health: HealthModule):
 	var atk := health.get_last_hit()
 	Assert.not_null(atk, "Damaged unit should have last attack hit saved")

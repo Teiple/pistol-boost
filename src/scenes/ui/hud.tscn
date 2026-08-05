@@ -1,9 +1,5 @@
 [gd_scene format=3 uid="uid://c6374jjh54lyk"]
 
-[ext_resource type="Texture2D" uid="uid://c536mle0vy05k" path="res://assets/ui/health_ring_under.png" id="1_m12ob"]
-[ext_resource type="Texture2D" uid="uid://bxdf8x7wsftoa" path="res://assets/ui/health_ring_fill.png" id="2_q3cwv"]
-[ext_resource type="Script" uid="uid://dtwsdyiravgs0" path="res://src/scripts/ui/health_ring.gd" id="3_q3cwv"]
-
 [node name="Hud" type="Control" unique_id=1674012225]
 layout_mode = 3
 anchors_preset = 15
@@ -11,25 +7,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HealthRing" type="TextureProgressBar" parent="." unique_id=1821478661]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
-step = 0.001
-value = 75.0
-fill_mode = 5
-nine_patch_stretch = true
-texture_under = ExtResource("1_m12ob")
-texture_progress = ExtResource("2_q3cwv")
-script = ExtResource("3_q3cwv")
