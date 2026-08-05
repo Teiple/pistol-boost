@@ -26,7 +26,7 @@ firing_collision_mask = 9
 
 [node name="turret" parent="." unique_id=1413266096 instance=ExtResource("5_4qr7k")]
 
-[node name="BoneRotationOffsetBody" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="6" unique_id=1449169885]
+[node name="BoneRotationOffsetBody" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="6" unique_id=1449169885]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -46,7 +46,7 @@ influence = 1.0
 script = ExtResource("6_ijno0")
 _target_bone = "body"
 
-[node name="BoneRotationOffsetHead" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="7" unique_id=1823944450]
+[node name="BoneRotationOffsetHead" type="SkeletonModifier3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="7" unique_id=1823944450]
 unique_name_in_owner = true
 process_mode = 0
 process_priority = 0
@@ -66,7 +66,7 @@ influence = 1.0
 script = ExtResource("6_ijno0")
 _target_bone = "head"
 
-[node name="BoneCannonMuzzle" type="ModifierBoneTarget3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="8" unique_id=1817221065]
+[node name="BoneCannonMuzzle" type="ModifierBoneTarget3D" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="8" unique_id=1817221065]
 transform = Transform3D(1, -1.09245946e-13, -9.5367375e-07, -9.53674e-07, -2.8871e-08, -0.9999998, 1.7097435e-14, 0.9999996, -2.3283064e-08, -6.3962724e-14, 0.7136101, 0.3739749)
 bone_name = "tip"
 bone = 3
@@ -75,7 +75,7 @@ bone = 3
 unique_name_in_owner = true
 transform = Transform3D(-7.54979e-08, 1, 1.509958e-07, 1, 7.54979e-08, 1.4079876e-15, -9.991879e-15, 1.509958e-07, -1, 0, 0.08454007, 0)
 
-[node name="BaseHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="9" unique_id=196940778 instance=ExtResource("6_4bymq")]
+[node name="BaseHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="9" unique_id=196940778 instance=ExtResource("6_4bymq")]
 collision_layer = 16
 _damage_multiplier = 0.5
 
@@ -84,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4091888, 0)
 shape = SubResource("CylinderShape3D_a0erb")
 debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
-[node name="RightLegsHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="10" unique_id=1742679842 instance=ExtResource("6_4bymq")]
+[node name="RightLegsHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="10" unique_id=1742679842 instance=ExtResource("6_4bymq")]
 collision_layer = 16
 _damage_multiplier = 0.25
 
@@ -93,7 +93,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17512167, 0.15723568, 0)
 shape = SubResource("BoxShape3D_a0erb")
 debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
-[node name="LeftLegsHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="11" unique_id=1457840889 instance=ExtResource("6_4bymq")]
+[node name="LeftLegsHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="11" unique_id=1457840889 instance=ExtResource("6_4bymq")]
 collision_layer = 16
 _damage_multiplier = 0.25
 
@@ -102,7 +102,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.175, 0.157, 0)
 shape = SubResource("BoxShape3D_a0erb")
 debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 
-[node name="BodyHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 74404081) index="12" unique_id=1100055309 instance=ExtResource("6_4bymq")]
+[node name="BodyHitBox" parent="turret/turret_rig/Skeleton3D" parent_id_path=PackedInt32Array(1413266096, 1461350444) index="12" unique_id=1100055309 instance=ExtResource("6_4bymq")]
 collision_layer = 16
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="turret/turret_rig/Skeleton3D/BodyHitBox" unique_id=1912331386]

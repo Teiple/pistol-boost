@@ -1,14 +1,18 @@
 class_name HealthBarModule
 extends Module
 
-@export var _bar : Range
+@export var _bar: Range
+@export var _current_health_label: Label
 @export var _pivot_offset := Vector2(.5, .5)
+
+
+static func find_on(node: Node) -> HealthBarModule:
+	return _find_on(node, _name())
+
 
 static func _name() -> String:
 	return "HealthBarModule"
 
-static func find_on(node : Node) -> HealthBarModule:
-	return _find_on(node, _name())
 
 func _ready() -> void:
 	super._ready()
@@ -29,3 +33,4 @@ func update_health(health_module: HealthModule) -> void:
 	_bar.max_value = health_module.get_max_health()
 	_bar.min_value = 0
 	_bar.value = health_module.get_current_health()
+	_current_health_label.text = str(floori(_bar.value))

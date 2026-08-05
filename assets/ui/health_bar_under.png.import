@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxdf8x7wsftoa"
-path="res://.godot/imported/health_ring_fill.png-3e40b6cae9c77ef7422668784df6c0d7.ctex"
+uid="uid://b81wmx82ksbc2"
+path.s3tc="res://.godot/imported/health_bar_under.png-ff6e077d2007f4ac5b9ff44990318366.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://assets/ui/health_ring_fill.png"
-dest_files=["res://.godot/imported/health_ring_fill.png-3e40b6cae9c77ef7422668784df6c0d7.ctex"]
+source_file="res://assets/ui/health_bar_under.png"
+dest_files=["res://.godot/imported/health_bar_under.png-ff6e077d2007f4ac5b9ff44990318366.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

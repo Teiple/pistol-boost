@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://ohmoiovxm1g8" path="res://src/scripts/modules/health_bar_module.gd" id="1_igw5u"]
 [ext_resource type="Texture2D" uid="uid://c536mle0vy05k" path="res://assets/ui/health_ring_under.png" id="2_dtf56"]
-[ext_resource type="Texture2D" uid="uid://bxdf8x7wsftoa" path="res://assets/ui/health_ring_fill.png" id="3_1bk5w"]
+[ext_resource type="Texture2D" uid="uid://bxdf8x7wsftoa" path="res://assets/ui/health_ring_progress.png" id="3_1bk5w"]
+[ext_resource type="FontFile" uid="uid://dg8kunwn767ex" path="res://assets/fonts/NotoSansMono-VariableFont_wdth,wght.ttf" id="4_dtf56"]
 
-[node name="PlayerHealthBar" type="Node3D" unique_id=2122614874 node_paths=PackedStringArray("_bar")]
+[node name="PlayerHealthBar" type="Node3D" unique_id=2122614874 node_paths=PackedStringArray("_bar", "_current_health_label")]
 script = ExtResource("1_igw5u")
 _bar = NodePath("Bar")
+_current_health_label = NodePath("Bar/HealthLabel")
 
 [node name="Bar" type="TextureProgressBar" parent="." unique_id=2026065882]
 anchors_preset = 8
@@ -27,3 +29,18 @@ fill_mode = 5
 nine_patch_stretch = true
 texture_under = ExtResource("2_dtf56")
 texture_progress = ExtResource("3_1bk5w")
+
+[node name="HealthLabel" type="Label" parent="Bar" unique_id=1663455658]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 6.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_dtf56")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1

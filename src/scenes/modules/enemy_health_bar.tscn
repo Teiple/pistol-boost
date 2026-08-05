@@ -1,31 +1,41 @@
 [gd_scene format=3 uid="uid://d4e05hnmroeql"]
 
 [ext_resource type="Script" uid="uid://ohmoiovxm1g8" path="res://src/scripts/modules/health_bar_module.gd" id="1_k5qtc"]
+[ext_resource type="Texture2D" uid="uid://b81wmx82ksbc2" path="res://assets/ui/health_bar_under.png" id="2_jrsn0"]
+[ext_resource type="Texture2D" uid="uid://borpnauh4bl6f" path="res://assets/ui/health_bar_progress.png" id="3_qp0kt"]
+[ext_resource type="FontFile" uid="uid://dg8kunwn767ex" path="res://assets/fonts/NotoSansMono-VariableFont_wdth,wght.ttf" id="4_qp0kt"]
 
-[sub_resource type="Gradient" id="Gradient_4bymq"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jrsn0"]
-gradient = SubResource("Gradient_4bymq")
-
-[sub_resource type="Gradient" id="Gradient_a0erb"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_qp0kt"]
-gradient = SubResource("Gradient_a0erb")
-
-[node name="EnemyHealthBar" type="Node3D" unique_id=135222220 node_paths=PackedStringArray("_bar")]
+[node name="EnemyHealthBar" type="Node3D" unique_id=135222220 node_paths=PackedStringArray("_bar", "_current_health_label")]
 script = ExtResource("1_k5qtc")
 _bar = NodePath("Bar")
+_current_health_label = NodePath("Bar/HealthLabel")
 _pivot_offset = Vector2(0.5, 1)
 
 [node name="Bar" type="TextureProgressBar" parent="." unique_id=1758910634]
-offset_right = 64.0
-offset_bottom = 8.0
+texture_filter = 3
+offset_right = 32.0
+offset_bottom = 4.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 value = 75.0
 nine_patch_stretch = true
-texture_under = SubResource("GradientTexture1D_jrsn0")
-texture_progress = SubResource("GradientTexture1D_qp0kt")
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_under = ExtResource("2_jrsn0")
+texture_progress = ExtResource("3_qp0kt")
+
+[node name="HealthLabel" type="Label" parent="Bar" unique_id=957167077]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -6.0
+offset_top = -12.0
+offset_right = 6.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("4_qp0kt")
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1

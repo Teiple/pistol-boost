@@ -74,7 +74,7 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yw0t6"]
 margin = 0.1
-size = Vector3(0.036132813, 0.053710938, 0.15786743)
+size = Vector3(0.036132813, 0.05834961, 0.16910553)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jvoiy"]
 margin = 0.1
@@ -92,6 +92,7 @@ size = Vector3(0.0234375, 0.040649414, 0.08991623)
 collision_layer = 2
 collision_mask = 5
 axis_lock_linear_z = true
+continuous_cd = true
 linear_damp_mode = 1
 script = ExtResource("1_jvoiy")
 _recoil_turn_speed_recovery_curve = SubResource("Curve_ijfcc")
@@ -100,24 +101,24 @@ _collision_shapes = [NodePath("CollisionShape3D"), NodePath("CollisionShape3D2")
 [node name="Model" parent="." unique_id=26733741 instance=ExtResource("1_b8b5d")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="pistol_root" parent="Model" index="0" unique_id=142712869]
+[node name="pistol_root" parent="Model" index="0" unique_id=2070201513]
 surface_material_override/0 = SubResource("StandardMaterial3D_xvyn7")
 
-[node name="pistol_slide" parent="Model/pistol_root" index="0" unique_id=735551584]
+[node name="pistol_slide" parent="Model/pistol_root" index="0" unique_id=225125929]
 surface_material_override/0 = SubResource("StandardMaterial3D_xvyn7")
 
-[node name="pistol_trigger" parent="Model/pistol_root" index="1" unique_id=1558486744]
+[node name="pistol_trigger" parent="Model/pistol_root" index="1" unique_id=229455623]
 surface_material_override/0 = SubResource("StandardMaterial3D_xvyn7")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=514507662]
 libraries/ = SubResource("AnimationLibrary_4vu8n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2132150891]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.00045647845, 0.030792234, 0.010062312)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.0014165379, 0.030792234, 8.187215e-11)
 shape = SubResource("BoxShape3D_yw0t6")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1456366314]
-transform = Transform3D(-4.371139e-08, -0.98129296, -0.19252054, 0, 0.19252053, -0.9812929, 0.99999994, -4.2893674e-08, -8.4153395e-09, -0.043021742, -0.02843362, 0.010062309)
+transform = Transform3D(-4.371139e-08, -0.98129296, -0.19252054, 0, 0.19252053, -0.9812929, 0.99999994, -4.2893674e-08, -8.4153395e-09, -0.043021742, -0.02843362, 0)
 shape = SubResource("BoxShape3D_jvoiy")
 
 [node name="FollowCam" type="Camera3D" parent="." unique_id=132913715]
@@ -128,7 +129,8 @@ fov = 25.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025126114, 0.0073890314, 0)
 
 [node name="MuzzlePoint" type="Marker3D" parent="." unique_id=314187361]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07968742, 0.033331834, 0)
+editor_description = "Keep this inside the gun physics collision shape and remember turn on player's continous CD to prevent projectiles spawn and shot through walls "
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08188928, 0.03927633, 0)
 
 [node name="FiringController" type="Node" parent="." unique_id=1467895321]
 script = ExtResource("2_8f1qk")
@@ -145,7 +147,7 @@ _enemy_hitbox_layer = 16
 collision_layer = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxModule" unique_id=715408339]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0009562038, 0.030151365, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.03, 0)
 shape = SubResource("BoxShape3D_4pcbe")
 debug_color = Color(0.7529412, 0.8980392, 0, 0.78431374)
 

@@ -33,7 +33,7 @@ func fire(firing_config: FiringConfig, apply_recoil: bool = true) -> void:
 			var spawn_context := BulletSpawnContext.new(
 				standard_config.bullet_config,
 				muzzle_point.global_position,
-				muzzle_point.global_basis.x * Vector3(1, 1, 0),
+				(muzzle_point.global_basis.x * Vector3(1, 1, 0)).normalized(),
 				standard_config.spread_angle_degrees,
 				collision_mask,
 				muzzle_point,

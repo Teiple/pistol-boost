@@ -181,6 +181,8 @@ func _physics_process(delta: float) -> void:
 
 
 func launch(from_position: Vector3, direction: Vector3, collision_mask: int) -> void:
+	Assert.check(direction.is_normalized())
+
 	global_position = from_position
 	_direction = direction
 
