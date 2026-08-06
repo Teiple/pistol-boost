@@ -8,7 +8,7 @@
 [node name="EnemyHealthBar" type="Node3D" unique_id=135222220 node_paths=PackedStringArray("_bar", "_current_health_label")]
 script = ExtResource("1_k5qtc")
 _bar = NodePath("Bar")
-_current_health_label = NodePath("Bar/HealthLabel")
+_current_health_label = NodePath("")
 _pivot_offset = Vector2(0.5, 1)
 
 [node name="Bar" type="TextureProgressBar" parent="." unique_id=1758910634]
@@ -25,9 +25,8 @@ stretch_margin_bottom = 1
 texture_under = ExtResource("2_jrsn0")
 texture_progress = ExtResource("3_qp0kt")
 
-[node name="HealthLabel" type="Label" parent="Bar" unique_id=957167077]
-layout_mode = 1
-anchors_preset = 5
+[node name="HealthLabel" type="Label" parent="Bar" unique_id=1390595600]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -6.0

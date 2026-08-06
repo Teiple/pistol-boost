@@ -6,6 +6,7 @@ enum Type {
 	HITSCAN_TRAIL,
 	BEAM,
 	HITSCAN,
+	DAMAGE_POPUP,
 }
 
 const NAMES: Dictionary[int, String] = {
@@ -14,4 +15,5 @@ const NAMES: Dictionary[int, String] = {
 	Type.HITSCAN_TRAIL: "hitscan_trail",
 	Type.BEAM: "beam",
 	Type.HITSCAN: "hitscan",
+	Type.DAMAGE_POPUP: "damage_popup"
 }

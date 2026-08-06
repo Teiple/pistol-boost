@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 			handler.on_fire_pressed(_secondary_config)
 
 		_secondary_fire_hold_timer += delta
-		_get_handler(_secondary_config).on_fire_held(_secondary_config, _secondary_fire_hold_timer)
+		handler.on_fire_held(_secondary_config, _secondary_fire_hold_timer)
 	else:
 		if _secondary_fire_hold_timer > 0:
 			_get_handler(_secondary_config).on_fire_released(
