@@ -25,6 +25,16 @@ func take_hit(hit: Attack.Hit) -> void:
 	health_mod.take_hit(hit)
 	hit_taken.emit(hit)
 
+	DamagePopup.show_popup(
+		hit.position,
+		(
+			DamagePopup.DamagePopupType.PLAYER_DAMAGE
+			if module_owner() is Player
+			else DamagePopup.DamagePopupType.NON_PLAYER_DAMAGE
+		),
+		hit.damage,
+	)
+
 
 func _on_child_entered_tree(node: Node) -> void:
 	if Engine.is_editor_hint():

@@ -2,6 +2,11 @@
 
 [ext_resource type="FontFile" uid="uid://dg8kunwn767ex" path="res://assets/fonts/NotoSansMono-VariableFont_wdth,wght.ttf" id="1_favxv"]
 [ext_resource type="Script" uid="uid://edbpevleaodb" path="res://src/scripts/ui/damage_popup_label.gd" id="2_xkxjb"]
+[ext_resource type="PackedScene" uid="uid://cj5lvihr24xug" path="res://src/scenes/modules/pooled_node_module.tscn" id="3_a8oxb"]
+
+[sub_resource type="Curve" id="Curve_a8oxb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7462908, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -7.6865478, 0.0, 0, 0]
+point_count = 3
 
 [node name="DamagePopupLabel" type="Label" unique_id=1390595600]
 anchors_preset = 5
@@ -12,8 +17,14 @@ offset_top = -12.0
 offset_right = 6.0
 grow_horizontal = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.78431374)
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("1_favxv")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 12
 text = "100"
 horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("2_xkxjb")
+_fade_curve = SubResource("Curve_a8oxb")
+
+[node name="PooledNodeModule" parent="." unique_id=1538853439 instance=ExtResource("3_a8oxb")]

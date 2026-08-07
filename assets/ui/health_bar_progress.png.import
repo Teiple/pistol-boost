@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://borpnauh4bl6f"
-path.etc2="res://.godot/imported/health_bar_progress.png-c222bac79cffb40d0ebaa35730458dc6.etc2.ctex"
+path.s3tc="res://.godot/imported/health_bar_progress.png-c222bac79cffb40d0ebaa35730458dc6.s3tc.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/ui/health_bar_progress.png"
-dest_files=["res://.godot/imported/health_bar_progress.png-c222bac79cffb40d0ebaa35730458dc6.etc2.ctex"]
+dest_files=["res://.godot/imported/health_bar_progress.png-c222bac79cffb40d0ebaa35730458dc6.s3tc.ctex"]
 
 [params]
 

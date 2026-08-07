@@ -34,3 +34,9 @@ func update_health(health_module: HealthModule) -> void:
 	_bar.min_value = 0
 	_bar.value = health_module.get_current_health()
 	_current_health_label.text = str(floori(_bar.value))
+
+	var is_dead = health_module.is_dead()
+	if is_dead:
+		_bar.visible = false
+	else:
+		_bar.visible = true

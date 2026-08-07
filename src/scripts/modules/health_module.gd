@@ -34,16 +34,14 @@ func take_hit(hit: Attack.Hit) -> void:
 	if !_invincible:
 		_current_health -= hit.damage
 
-	var no_health := false
 	if _current_health <= 0:
 		_current_health = 0
-		no_health = true
+		die()
 
 	damage_taken.emit(self)
 	health_changed.emit(self)
-
-	if no_health:
-		die()
+	if _is_dead:
+		died.emit(self)
 
 
 func heal(amount: float):
@@ -60,7 +58,10 @@ func die():
 	if _is_dead:
 		return
 	_is_dead = true
-	died.emit(self)
+
+
+func is_dead():
+	return _is_dead
 
 
 func get_last_hit() -> Attack.Hit:

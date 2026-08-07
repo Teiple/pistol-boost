@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://elj730f34yai"]
+
+[ext_resource type="Script" uid="uid://da47wm56lngqu" path="res://src/scripts/autoloads/damage_popup.gd" id="1_xc1up"]
+[ext_resource type="PackedScene" uid="uid://c5plknbqpwyjc" path="res://src/scenes/ui/damage_popup_label.tscn" id="2_htfm1"]
+[ext_resource type="Script" uid="uid://daqfx3a55356b" path="res://src/scripts/resources/id_packed_scene.gd" id="3_2r8ff"]
+
+[sub_resource type="Resource" id="Resource_y23ux"]
+script = ExtResource("3_2r8ff")
+id = "default"
+scene = ExtResource("2_htfm1")
+metadata/_custom_type_script = "uid://daqfx3a55356b"
+
+[node name="DamagePopup" type="Node" unique_id=1243517475]
+script = ExtResource("1_xc1up")
+_player_hit_color = Color(1, 0.54376775, 0.4794641, 1)
+_label_scene = SubResource("Resource_y23ux")

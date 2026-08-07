@@ -20,6 +20,10 @@ func _ready() -> void:
 	_standard_fire_handler = StandardFiringHandler.new(self)
 	_burst_fire_handler = BurstFiringHandler.new(self)
 
+	var health_module := HealthModule.find_on(_player)
+	Assert.not_null(health_module)
+	health_module.died.connect(_on_player_died)
+
 
 func _process(delta: float) -> void:
 	_burst_fire_handler.update(delta)
@@ -34,17 +38,11 @@ func _process(delta: float) -> void:
 		handler.on_fire_held(_primary_config, _primary_fire_hold_timer)
 	else:
 		if _primary_fire_hold_timer > 0:
-			_get_handler(_primary_config).on_fire_released(
-				_primary_config,
-				_primary_fire_hold_timer,
-			)
+			_get_handler(_primary_config).on_fire_released(_primary_config, _primary_fire_hold_timer)
 		_primary_fire_hold_timer = 0.0
 
 	# Secondary fire
-	if (
-		Input.is_action_just_pressed("secondary_fire") \
-				|| Input.is_action_pressed("secondary_fire")
-	):
+	if (Input.is_action_just_pressed("secondary_fire") || Input.is_action_pressed("secondary_fire")):
 		var handler := _get_handler(_secondary_config)
 		if Input.is_action_just_pressed("secondary_fire"):
 			handler.on_fire_pressed(_secondary_config)
@@ -53,10 +51,7 @@ func _process(delta: float) -> void:
 		handler.on_fire_held(_secondary_config, _secondary_fire_hold_timer)
 	else:
 		if _secondary_fire_hold_timer > 0:
-			_get_handler(_secondary_config).on_fire_released(
-				_secondary_config,
-				_secondary_fire_hold_timer,
-			)
+			_get_handler(_secondary_config).on_fire_released(_secondary_config, _secondary_fire_hold_timer)
 		_secondary_fire_hold_timer = 0.0
 
 
@@ -74,6 +69,13 @@ func apply_recoil(recoil_force: float) -> void:
 
 func play_firing_sound(sound: Sound) -> void:
 	_player.firing_sound_play(sound.stream, linear_to_db(sound.base_volume))
+
+
+func _on_player_died(_health_module: HealthModule):
+	_get_handler(_primary_config).on_weapon_interrupted()
+	_get_handler(_secondary_config).on_weapon_interrupted()
+
+	set_process(false)
 
 
 func _get_handler(firing_config: FiringConfig) -> PlayerFiringHandler:

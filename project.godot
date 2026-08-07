@@ -25,6 +25,7 @@ FrameTime="*uid://bkaaevxl3muql"
 Global="*uid://dooml43x1offt"
 Pools="*uid://bmlruf2hfsnvj"
 Bullets="*uid://dkan3f3d8kwqw"
+DamagePopup="*uid://elj730f34yai"
 
 [debug]
 

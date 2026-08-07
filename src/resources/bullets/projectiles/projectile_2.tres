@@ -14,5 +14,6 @@ metadata/_custom_type_script = "uid://daqfx3a55356b"
 [resource]
 script = ExtResource("3_430vo")
 bullet = SubResource("Resource_t3ikq")
+damage = 5.0
 impact_fx = ExtResource("1_84l3t")
 metadata/_custom_type_script = "uid://be8ofj5hhbeom"

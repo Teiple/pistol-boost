@@ -28,6 +28,7 @@ func _ready() -> void:
 	_follow_cam.top_level = true
 	_health = HealthModule.find_on(self)
 	_health.damage_taken.connect(_on_damage_taken)
+	_health.died.connect(_on_died)
 
 
 func _physics_process(_delta: float) -> void:
@@ -61,11 +62,7 @@ func _physics_process(_delta: float) -> void:
 		(FrameTime.physics_process_time() - _last_recoil_time) / _recoil_turn_speed_recovery_time,
 	)
 
-	angular_velocity = target_angular_veloc * _max_turn_speed * Vector3(
-		1,
-		1,
-		_turn_speed_multiplier,
-	)
+	angular_velocity = target_angular_veloc * _max_turn_speed * Vector3(1, 1, _turn_speed_multiplier)
 
 	# speed cap
 	if linear_velocity.length_squared() > _max_speed * _max_speed:
@@ -98,10 +95,7 @@ func apply_recoil(recoil_force: float) -> void:
 	_anim_player.stop()
 	_anim_player.play("fire")
 
-	apply_impulse(
-		recoil_direction * recoil_force,
-		_recoil_impulse_point.global_position - global_position,
-	)
+	apply_impulse(recoil_direction * recoil_force, _recoil_impulse_point.global_position - global_position)
 
 	_last_recoil_time = FrameTime.physics_process_time()
 
@@ -117,9 +111,18 @@ func firing_sound_play(stream: AudioStream, volume_db: float) -> void:
 	_firing_sound_player.play()
 
 
+func is_dead():
+	return _health.is_dead()
+
+
 func _on_damage_taken(health: HealthModule):
 	var atk := health.get_last_hit()
 	Assert.not_null(atk, "Damaged unit should have last attack hit saved")
 	if atk.damage_type == Attack.DamageType.TOUCH:
 		linear_velocity *= 0
 		apply_impulse(atk.direction * atk.impact_force)
+
+
+func _on_died(_health_module: HealthModule):
+	set_physics_process(false)
+	set_process(false)

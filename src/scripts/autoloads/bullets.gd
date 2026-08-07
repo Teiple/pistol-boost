@@ -23,13 +23,20 @@ func _ready():
 func spawn_bullet(spawn_context: BulletSpawnContext) -> Bullet:
 	Assert.not_null(spawn_context, "Bullet spawn context should not be null")
 
-	Assert.not_null(
-		spawn_context.bullet_config,
-		"Bullet config should not be null instead spawn context",
-	)
+	Assert.not_null(spawn_context.bullet_config, "Bullet config should not be null instead spawn context")
 
 	_get_bullet_spawner(spawn_context.bullet_config).spawn_bullet(spawn_context)
 
+	return null
+
+
+func get_bullet_aim_resolver(
+	bullet_config: BulletConfig,
+	aim_resolve_callable_name: String = Bullet.resolve_aim_direction.get_method(),
+) -> AimResolver:
+	var script := ResourceUtil.get_scene_script(bullet_config.bullet.scene)
+	if script != null && script.has_script_method(aim_resolve_callable_name):
+		return AimResolver.new(Callable(script, aim_resolve_callable_name), bullet_config)
 	return null
 
 
@@ -42,16 +49,6 @@ func _get_bullet_spawner(bullet_config: BulletConfig) -> BulletSpawner:
 		return _beam_spawner
 
 	Assert.unreachable("Bullet spawner was not implemented")
-	return null
-
-
-func get_bullet_aim_resolver(
-	bullet_config: BulletConfig,
-	aim_resolve_callable_name: String = Bullet.resolve_aim_direction.get_method(),
-) -> AimResolver:
-	var script := ResourceUtil.get_scene_script(bullet_config.bullet.scene)
-	if script != null && script.has_script_method(aim_resolve_callable_name):
-		return AimResolver.new(Callable(script, aim_resolve_callable_name), bullet_config)
 	return null
 
 
