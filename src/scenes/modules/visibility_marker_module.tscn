@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bjh5muep53xst"]
+
+[ext_resource type="Script" uid="uid://wot0ju5sg6gu" path="res://src/scripts/modules/visibility_marker_module.gd" id="1_dkvwy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkvwy"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.16470589, 0.6627451, 0, 0.78431374)
+
+[sub_resource type="SphereMesh" id="SphereMesh_f2je7"]
+material = SubResource("StandardMaterial3D_dkvwy")
+radius = 0.01
+height = 0.02
+radial_segments = 8
+rings = 4
+
+[node name="VisibilityMarkerModule" type="Node3D" unique_id=900104367]
+script = ExtResource("1_dkvwy")
+_is_unique = false
+
+[node name="Marker" type="MeshInstance3D" parent="." unique_id=333201825]
+mesh = SubResource("SphereMesh_f2je7")

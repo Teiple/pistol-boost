@@ -57,4 +57,5 @@ func pool_key(group: int, id: String) -> String:
 func clear_runtime_pools() -> void:
 	for pool: Pool in _runtime_pools.values():
 		pool.clear()
+	_runtime_pools.clear()
 	_runtime_pool_resource_paths.clear()

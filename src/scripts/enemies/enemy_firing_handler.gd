@@ -14,10 +14,7 @@ func can_start(_firing_config: FiringConfig, _muzzle_point: Node3D) -> bool:
 
 func start(firing_config: FiringConfig, muzzle_point: Node3D) -> void:
 	var is_available := can_start(firing_config, muzzle_point)
-	Assert.check(
-		is_available,
-		"Firing cannot be started yet. Call can_start() first before starting.",
-	)
+	Assert.check(is_available, "Firing cannot be started yet. Call can_start() first before starting.")
 	if is_available:
 		_start(firing_config, muzzle_point)
 
@@ -47,8 +44,7 @@ func fire(firing_config: FiringConfig, muzzle_point: Node3D) -> void:
 
 			Bullets.spawn_bullet(spawn_context)
 
-	if firing_config.firing_sound != null:
-		_controller.play_firing_sound(firing_config.firing_sound)
+	_controller.notify_shot_fired(firing_config.firing_sound)
 
 
 @abstract func _start(firing_config: FiringConfig, muzzle_point: Node3D) -> void

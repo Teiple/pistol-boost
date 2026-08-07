@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://t5t7dsq52ah1" path="res://src/scripts/util/bones/bone_rotation_offset.gd" id="6_ijno0"]
 [ext_resource type="PackedScene" uid="uid://ciw4yi3lcb00v" path="res://src/scenes/modules/flash_hit_module.tscn" id="8_a0erb"]
 [ext_resource type="PackedScene" uid="uid://d4e05hnmroeql" path="res://src/scenes/modules/enemy_health_bar.tscn" id="8_wf735"]
+[ext_resource type="Script" uid="uid://dm3iotrpurag2" path="res://src/scripts/enemies/enemy_firing_controller.gd" id="9_wf735"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_a0erb"]
 height = 0.16210938
@@ -23,6 +24,7 @@ radius = 0.33023143
 script = ExtResource("1_ks2hp")
 firing_config = ExtResource("2_p7447")
 firing_collision_mask = 9
+detection_collision_mask = 1
 
 [node name="turret" parent="." unique_id=1413266096 instance=ExtResource("5_4qr7k")]
 
@@ -137,5 +139,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1859322, 0)
 
 [node name="EnemyHealthBar" parent="." unique_id=135222220 instance=ExtResource("8_wf735")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0814428, 0)
+
+[node name="DetectionRaycast" type="RayCast3D" parent="." unique_id=1147160358]
+enabled = false
+target_position = Vector3(0, 0, 0)
+collision_mask = 0
+
+[node name="DetectionOrigin" type="Marker3D" parent="." unique_id=1472822460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6805073, 0)
+
+[node name="FiringController" type="Node" parent="." unique_id=1920133612 node_paths=PackedStringArray("_default_muzzle_point", "_firing_sound_player")]
+script = ExtResource("9_wf735")
+_default_muzzle_point = NodePath("../turret/turret_rig/Skeleton3D/BoneCannonMuzzle/CannonMuzzle")
+_firing_sound_player = NodePath("../FiringSoundPlayer")
+_collision_mask = 9
+metadata/_custom_type_script = "uid://dm3iotrpurag2"
 
 [editable path="turret"]

@@ -63,12 +63,8 @@ func get_collision_mask() -> int:
 	return _collision_mask
 
 
-func apply_recoil(recoil_force: float) -> void:
-	_player.apply_recoil(recoil_force)
-
-
-func play_firing_sound(sound: Sound) -> void:
-	_player.firing_sound_play(sound.stream, linear_to_db(sound.base_volume))
+func notify_shot_fired(recoil_force: float, firing_sound: Sound) -> void:
+	_player.on_shot_fired(recoil_force, firing_sound)
 
 
 func _on_player_died(_health_module: HealthModule):

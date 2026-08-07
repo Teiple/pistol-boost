@@ -4,12 +4,15 @@ extends PlayerFiringHandler
 var _active_beam: Beam = null
 
 
-func on_fire_pressed(_firing_config: FiringConfig) -> void:
+func on_fire_pressed(firing_config: FiringConfig) -> void:
 	var muzzle_point := _controller.get_muzzle_point()
 	var fire_from := muzzle_point.global_position
 	var fire_direction := muzzle_point.global_basis.x * Vector3(1, 0, 1)
+
+	var config := _ensure_config_type(firing_config)
+
 	var spawn_context := BulletSpawnContext.new(
-		_firing_config.bullet_config,
+		config.bullet_config,
 		fire_from,
 		fire_direction,
 		0,
@@ -19,6 +22,8 @@ func on_fire_pressed(_firing_config: FiringConfig) -> void:
 
 	var beam := Bullets.spawn_bullet(spawn_context) as Beam
 	Assert.not_null(beam, "Bullet spawn should be of type Beam")
+
+	_controller.notify_shot_fired(config.initial_recoil_force, config.firing_sound)
 
 	_active_beam = beam
 

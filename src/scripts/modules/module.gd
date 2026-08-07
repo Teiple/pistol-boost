@@ -9,15 +9,12 @@ const ARRAY_PREFIX = "arr_"
 
 
 static func find_on(_node: Node) -> Module:
-	Assert.unreachable(
-		"Module should define its own find method."
-		+ " Non-unique module may only define find_array_on()"
-	)
+	Assert.unreachable("Module should define its own find method. Non-unique module may only define find_array_on()")
 	return null
 
 
 static func find_array_on(_node: Node) -> Array:
-	Assert.unreachable("Module should define its own find method")
+	Assert.unreachable("Module should define its own find method. Unique module may only define find_on()")
 	return []
 
 
@@ -52,10 +49,7 @@ func _ready() -> void:
 			modules.push_back(self)
 			module_owner().set_meta(ARRAY_PREFIX + _name(), modules)
 		else:
-			var arr: Array = type_convert(
-				module_owner().get_meta(ARRAY_PREFIX + _name()),
-				TYPE_ARRAY,
-			)
+			var arr: Array = type_convert(module_owner().get_meta(ARRAY_PREFIX + _name()), TYPE_ARRAY)
 			arr.push_back(self)
 			modules = arr
 

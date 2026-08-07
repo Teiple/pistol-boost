@@ -4,3 +4,11 @@
 
 [node name="Test" type="Node" unique_id=1774514996]
 script = ExtResource("1_h8yaf")
+
+[node name="ResultLabel" type="Label" parent="." unique_id=515659271]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 624.0
+offset_bottom = 184.0
+theme_override_font_sizes/font_size = 22
+text = "Running GDScript signal cleanup demo..."

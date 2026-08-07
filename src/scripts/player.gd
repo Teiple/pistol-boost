@@ -1,6 +1,8 @@
 class_name Player
 extends RigidBody3D
 
+signal shot_fired(player: Player)
+
 @export var _max_speed := 20.0
 @export var _max_turn_speed := 25.0
 @export var _recoil_turn_speed_recovery_curve: Curve = Curve.new()
@@ -81,7 +83,31 @@ func get_muzzle_point() -> Node3D:
 	return _muzzle_point
 
 
-func apply_recoil(recoil_force: float) -> void:
+func get_collision_shapes() -> Array[CollisionShape3D]:
+	return _collision_shapes
+
+
+func is_dead():
+	return _health.is_dead()
+
+
+func on_shot_fired(recoil: float, firing_sound: Sound):
+	if recoil > 0:
+		_apply_recoil(recoil)
+	_firing_sound_play(firing_sound)
+	shot_fired.emit(self)
+
+
+func _firing_sound_play(firing_sound: Sound) -> void:
+	if firing_sound == null:
+		return
+	var stream = firing_sound.stream
+	_firing_sound_player.stream = stream
+	_firing_sound_player.volume_linear = firing_sound.base_volume
+	_firing_sound_player.play()
+
+
+func _apply_recoil(recoil_force: float) -> void:
 	var recoil_direction := -global_basis.x
 	var recoil_opposite_direction := -recoil_direction
 	# killing the velocity in recoil direction
@@ -98,21 +124,6 @@ func apply_recoil(recoil_force: float) -> void:
 	apply_impulse(recoil_direction * recoil_force, _recoil_impulse_point.global_position - global_position)
 
 	_last_recoil_time = FrameTime.physics_process_time()
-
-
-func get_collision_shapes() -> Array[CollisionShape3D]:
-	return _collision_shapes
-
-
-func firing_sound_play(stream: AudioStream, volume_db: float) -> void:
-	Assert.not_null(stream)
-	_firing_sound_player.stream = stream
-	_firing_sound_player.volume_db = volume_db
-	_firing_sound_player.play()
-
-
-func is_dead():
-	return _health.is_dead()
 
 
 func _on_damage_taken(health: HealthModule):

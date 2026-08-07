@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bl27t6gl78lv"]
+
+[ext_resource type="Script" uid="uid://cw6n2g1ycqtl5" path="res://src/scripts/modules/breadcrumb_module.gd" id="1_d1330"]
+
+[node name="BreadcrumbModule" type="Node3D" unique_id=2032954175]
+script = ExtResource("1_d1330")

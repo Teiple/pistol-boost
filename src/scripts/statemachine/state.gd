@@ -1,7 +1,5 @@
 @abstract class_name StateMachineState
 
-var statemachine: StateMachine
-
 
 # Check for missing states registration
 static func _validate_states(state_enum: Dictionary, states: Array[StateMachineState]) -> void:
@@ -13,11 +11,7 @@ static func _validate_states(state_enum: Dictionary, states: Array[StateMachineS
 			state_id,
 			"Turret state id %s should exist in the State enum" % state_id,
 		)
-		Assert.array_not_contains(
-			state_ids,
-			state_id,
-			"Turret state id %s should only be registered once" % state_id,
-		)
+		Assert.array_not_contains(state_ids, state_id, "Turret state id %s should only be registered once" % state_id)
 		state_ids.push_back(state_id)
 
 	Assert.array_has_size(
@@ -27,6 +21,7 @@ static func _validate_states(state_enum: Dictionary, states: Array[StateMachineS
 	)
 
 
+# each state should define its id
 @abstract func get_state_id() -> int
 
 

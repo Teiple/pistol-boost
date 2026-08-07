@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bjg4gkrpmji4l" path="res://src/scenes/player_contact_scanner.tscn" id="8_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://ciw4yi3lcb00v" path="res://src/scenes/modules/flash_hit_module.tscn" id="9_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://kwevmea8lms4" path="res://src/scenes/modules/player_health_bar.tscn" id="10_0hlw3"]
+[ext_resource type="PackedScene" uid="uid://bjh5muep53xst" path="res://src/scenes/modules/visibility_marker_module.tscn" id="11_4vu8n"]
+[ext_resource type="PackedScene" uid="uid://bl27t6gl78lv" path="res://src/scenes/modules/breadcrumb_module.tscn" id="12_kc20y"]
 
 [sub_resource type="Curve" id="Curve_ijfcc"]
 _data = [Vector2(0, 0), 0.0, 2.7325935, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -170,5 +172,20 @@ attenuation_model = 3
 max_polyphony = 3
 
 [node name="PlayerHealthBar" parent="." unique_id=2122614874 instance=ExtResource("10_0hlw3")]
+
+[node name="VisibilityMarkerModule" parent="." unique_id=900104367 instance=ExtResource("11_4vu8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08173702, 0.04386767, 0)
+
+[node name="VisibilityMarkerModule2" parent="." unique_id=1944166119 instance=ExtResource("11_4vu8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.073185466, 0.04386767, 0)
+
+[node name="VisibilityMarkerModule3" parent="." unique_id=2028236896 instance=ExtResource("11_4vu8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0375184, 0.015631244, 0)
+
+[node name="VisibilityMarkerModule4" parent="." unique_id=1788238919 instance=ExtResource("11_4vu8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06352564, -0.07056415, 0)
+
+[node name="BreadcrumbModule" parent="." unique_id=2032954175 node_paths=PackedStringArray("_tracking_point") instance=ExtResource("12_kc20y")]
+_tracking_point = NodePath("..")
 
 [editable path="Model"]
