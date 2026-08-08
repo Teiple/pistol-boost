@@ -18,6 +18,7 @@ func goto(state_id: int) -> void:
 		_states[_current_state_id].exit()
 	if state_id in _states:
 		_current_state_id = state_id
+		_states[state_id].pre_enter()
 		_states[state_id].enter()
 	else:
 		Assert.unreachable("State id of %s was not registered in the state machine" % state_id)

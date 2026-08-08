@@ -5,8 +5,6 @@ extends Enemy
 
 @export_group("Firing")
 @export var firing_config: FiringConfig
-@export var scan_duration := 1.5
-@export var suppress_burst_count := 2
 
 @export_flags_3d_physics var firing_collision_mask: int = 3
 
@@ -41,9 +39,6 @@ func _ready() -> void:
 		&& cannon_pitch_neutral_degrees <= cannon_pitch_degrees_max,
 		"Cannon neutral pitch should be within its pitch limits",
 	)
-	Assert.positivef(scan_duration, "Turret scan duration should be positive")
-	Assert.positivei(suppress_burst_count, "Turret suppress burst count should be positive")
-
 	statemachine = StateMachine.new()
 	statemachine.init_states(TurretState.create_states(self))
 	statemachine.goto(TurretState.State.IDLE)

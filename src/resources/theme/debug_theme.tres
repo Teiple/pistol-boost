@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://bus31pl3dw3yr"]
+
+[ext_resource type="FontFile" uid="uid://dg8kunwn767ex" path="res://assets/fonts/NotoSansMono-VariableFont_wdth,wght.ttf" id="1_watkp"]
+
+[resource]
+Label/fonts/font = ExtResource("1_watkp")
+RichTextLabel/fonts/bold_font = null
+RichTextLabel/fonts/normal_font = ExtResource("1_watkp")

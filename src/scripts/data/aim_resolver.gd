@@ -9,5 +9,5 @@ func _init(resolver: Callable, bullet_config: BulletConfig) -> void:
 	_bullet_config = bullet_config
 
 
-func resolve_direction(from: Node3D, to: Node3D) -> Vector3:
+func resolve(from: Node3D, to: Node3D) -> AimResolverResult:
 	return _resolver.call(from, to, _bullet_config)

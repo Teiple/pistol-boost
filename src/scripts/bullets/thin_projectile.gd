@@ -27,12 +27,14 @@ var _collision_length := 0.0
 @onready var _end_marker: Marker3D = $EndMarker
 
 
-static func resolve_aim_direction(from: Node3D, to: Node3D, bullet_config: BulletConfig) -> Vector3:
+static func resolve_aim(from: Node3D, to: Node3D, bullet_config: BulletConfig) -> AimResolverResult:
+	var res := AimResolverResult.new()
+
 	var player := to as Player
 	# only resolve player as target for now, priority
 	if player == null:
 		# default to direct aim
-		return Bullet.resolve_aim_direction(from, to, bullet_config)
+		return Bullet.resolve_aim(from, to, bullet_config)
 
 	var config := bullet_config as ProjectileBulletConfig
 	Assert.not_null(config, "Thin projectile aim should receive a ProjectileBulletConfig")
@@ -49,16 +51,11 @@ static func resolve_aim_direction(from: Node3D, to: Node3D, bullet_config: Bulle
 		target_velocity *= 1.0 - GROUND_VELOCITY_DAMPING
 
 	var interception_time := -1.0
-	var max_prediction_time := minf(
-		MAX_PREDICTION_TIME,
-		config.max_distance / config.projectile_speed,
-	)
+	var max_prediction_time := minf(MAX_PREDICTION_TIME, config.max_distance / config.projectile_speed)
 
 	if gravity.is_zero_approx():
 		# Solve |relative_position + target_velocity * t| = projectile_speed * t.
-		var a := (
-			target_velocity.length_squared() - config.projectile_speed * config.projectile_speed
-		)
+		var a := (target_velocity.length_squared() - config.projectile_speed * config.projectile_speed)
 		var b := 2.0 * relative_position.dot(target_velocity)
 		var c := relative_position.length_squared()
 
@@ -76,10 +73,7 @@ static func resolve_aim_direction(from: Node3D, to: Node3D, bullet_config: Bulle
 
 				if first_root > 0.0:
 					interception_time = first_root
-				if (
-					second_root > 0.0
-					&& (interception_time < 0.0 || second_root < interception_time)
-				):
+				if (second_root > 0.0 && (interception_time < 0.0 || second_root < interception_time)):
 					interception_time = second_root
 	else:
 		# Find the earliest root of:
@@ -98,14 +92,11 @@ static func resolve_aim_direction(from: Node3D, to: Node3D, bullet_config: Bulle
 
 			# Evaluate the target's predicted offset at this sample time.
 			var current_target_offset := (
-				relative_position + target_velocity * current_time
-				+ 0.5 * gravity * current_time * current_time
+				relative_position + target_velocity * current_time + 0.5 * gravity * current_time * current_time
 			)
 
 			# Compare the required distance with how far the projectile can travel.
-			var current_value := (
-				current_target_offset.length() - config.projectile_speed * current_time
-			)
+			var current_value := (current_target_offset.length() - config.projectile_speed * current_time)
 
 			# A positive-to-non-positive change brackets an interception root.
 			if current_value <= 0.0 && previous_value >= 0.0:
@@ -117,12 +108,9 @@ static func resolve_aim_direction(from: Node3D, to: Node3D, bullet_config: Bulle
 				for _iteration in BISECTION_ITERATIONS:
 					var middle_time := (left_time + right_time) * 0.5
 					var middle_target_offset := (
-						relative_position + target_velocity * middle_time
-						+ 0.5 * gravity * middle_time * middle_time
+						relative_position + target_velocity * middle_time + 0.5 * gravity * middle_time * middle_time
 					)
-					var middle_value := (
-						middle_target_offset.length() - config.projectile_speed * middle_time
-					)
+					var middle_value := (middle_target_offset.length() - config.projectile_speed * middle_time)
 
 					# Stop early when the midpoint is already sufficiently close to the root.
 					if absf(middle_value) <= ROOT_VALUE_TOLERANCE:
@@ -146,13 +134,18 @@ static func resolve_aim_direction(from: Node3D, to: Node3D, bullet_config: Bulle
 			previous_value = current_value
 
 	if interception_time < 0.0 || interception_time > max_prediction_time:
-		return Bullet.resolve_aim_direction(from, to, bullet_config)
+		return Bullet.resolve_aim(from, to, bullet_config)
 
 	var predicted_position := (
 		player.global_position + target_velocity * interception_time
 		+ 0.5 * gravity * interception_time * interception_time
 	)
-	return from.global_position.direction_to(predicted_position)
+
+	res.resolution = AimResolverResult.Resolution.INTERCEPT
+	res.predicted_position = predicted_position
+	res.resolved_aim_direction = from.global_position.direction_to(predicted_position)
+
+	return res
 
 
 func _ready() -> void:
@@ -235,8 +228,10 @@ func _check_and_collide() -> bool:
 
 	var impact_effect := Pools.get_instance(
 		PoolGroup.Type.IMPACT_EFFECT,
+		\
 		projectile_config.impact_fx.id,
 	) as ImpactEffect
+
 	Assert.not_null(impact_effect, "Impact pool should return an ImpactEffect")
 
 	impact_effect.play_at(atk_hit.position, atk_hit.normal)

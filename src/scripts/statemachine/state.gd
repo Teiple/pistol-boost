@@ -25,7 +25,17 @@ static func _validate_states(state_enum: Dictionary, states: Array[StateMachineS
 @abstract func get_state_id() -> int
 
 
+# mainly used for debug
+func pre_enter():
+	pass
+
+
 func enter():
+	pass
+
+
+# mainly used for debug
+func pre_update():
 	pass
 
 

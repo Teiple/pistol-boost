@@ -4,6 +4,8 @@ extends Node
 var _loading_scene: String = ""
 var _current_scene: Node = null
 
+var _debug_slowmo := false
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
@@ -21,6 +23,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	elif event.is_action_pressed("debug_1"):
+		if _debug_slowmo:
+			Engine.time_scale = 1.0
+			_debug_slowmo = false
+		else:
+			Engine.time_scale = .1
+			_debug_slowmo = true
 
 
 func current_scene() -> Node:

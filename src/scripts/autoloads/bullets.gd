@@ -32,7 +32,7 @@ func spawn_bullet(spawn_context: BulletSpawnContext) -> Bullet:
 
 func get_bullet_aim_resolver(
 	bullet_config: BulletConfig,
-	aim_resolve_callable_name: String = Bullet.resolve_aim_direction.get_method(),
+	aim_resolve_callable_name: String = Bullet.resolve_aim.get_method(),
 ) -> AimResolver:
 	var script := ResourceUtil.get_scene_script(bullet_config.bullet.scene)
 	if script != null && script.has_script_method(aim_resolve_callable_name):
