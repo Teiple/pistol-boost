@@ -6,7 +6,7 @@ var _current_scene: Node = null
 
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
 	# Let this node run even when the tree is paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -17,10 +17,10 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CONFINED:
+		if Input.mouse_mode == Input.MOUSE_MODE_CONFINED_HIDDEN:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
 
 func current_scene() -> Node:

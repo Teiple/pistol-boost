@@ -65,7 +65,7 @@ func die():
 	_is_dead = true
 
 
-func is_dead():
+func is_dead() -> bool:
 	return _is_dead
 
 

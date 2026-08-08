@@ -18,11 +18,15 @@ static func _name() -> String:
 
 
 func take_hit(hit: Attack.Hit) -> void:
-	var health_mod := HealthModule.find_on(module_owner())
-	Assert.not_null(health_mod, "Hitbox can only work with owner with HealthModule")
+	var health_module := HealthModule.find_on(module_owner())
+	Assert.not_null(health_module, "Hitbox can only work with owner with HealthModule")
+	if health_module.is_dead():
+		return
+
 	hit.damage *= _damage_multiplier
 	hit.impact_force *= _damage_multiplier
-	health_mod.take_hit(hit)
+
+	health_module.take_hit(hit)
 	hit_taken.emit(hit)
 
 	DamagePopup.show_popup(

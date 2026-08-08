@@ -28,9 +28,7 @@ func _ready() -> void:
 
 func _on_hit_taken(_atk_hit: Attack.Hit):
 	var tween := create_tween()
-	tween \
-			.tween_method(_interpolate_flash_amount, 0.0, 1.0, _flash_duration) \
-			.set_trans(Tween.TRANS_LINEAR)
+	tween.tween_method(_interpolate_flash_amount, 0.0, 1.0, _flash_duration).set_trans(Tween.TRANS_LINEAR)
 
 
 func _interpolate_flash_amount(t: float):
