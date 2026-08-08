@@ -40,7 +40,7 @@ func get_player() -> Player:
 
 
 func get_camera() -> Camera3D:
-	return get_player().get_follow_cam()
+	return get_viewport().get_camera_3d()
 
 
 func load_scene(path: String) -> void:

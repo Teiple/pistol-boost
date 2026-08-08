@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://wipfemci7pmi" path="res://assets/models/pistol.glb" id="1_b8b5d"]
 [ext_resource type="Script" uid="uid://b27a2ykkwout" path="res://src/scripts/player.gd" id="1_jvoiy"]
 [ext_resource type="Script" uid="uid://bxpx8w7bq5cvv" path="res://src/scripts/player/player_firing_controller.gd" id="2_8f1qk"]
+[ext_resource type="Script" uid="uid://kvk4eonitmnx" path="res://src/scripts/player/follow_cam.gd" id="3_lsi8j"]
 [ext_resource type="PackedScene" uid="uid://dq14655v1w3sn" path="res://src/scenes/modules/hitbox_module.tscn" id="4_8v6aa"]
 [ext_resource type="Resource" uid="uid://blchjbrdyqu3b" path="res://src/resources/firing/standard_primary.tres" id="5_0qy4j"]
 [ext_resource type="Resource" uid="uid://dogaqaq18ao6r" path="res://src/resources/firing/standard_secondary.tres" id="6_8v6aa"]
@@ -91,6 +92,7 @@ margin = 0.1
 size = Vector3(0.03100586, 0.06965637, 0.111486435)
 
 [node name="Player" type="RigidBody3D" unique_id=676303293 node_paths=PackedStringArray("_collision_shapes")]
+physics_interpolation_mode = 1
 collision_layer = 2
 collision_mask = 5
 axis_lock_linear_z = true
@@ -124,9 +126,14 @@ shape = SubResource("BoxShape3D_yw0t6")
 transform = Transform3D(-4.371139e-08, -0.98129296, -0.19252054, 0, 0.19252053, -0.9812929, 0.99999994, -4.2893674e-08, -8.4153395e-09, -0.05203779, -0.03238242, -3.9410392e-10)
 shape = SubResource("BoxShape3D_jvoiy")
 
-[node name="FollowCam" type="Camera3D" parent="." unique_id=132913715]
+[node name="FollowCamPoint" type="Marker3D" parent="." unique_id=1005516480]
+
+[node name="FollowCam" type="Camera3D" parent="." unique_id=132913715 node_paths=PackedStringArray("_follow_target")]
+physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 2.5, 12)
 fov = 25.0
+script = ExtResource("3_lsi8j")
+_follow_target = NodePath("../FollowCamPoint")
 
 [node name="RecoilImpulsePoint" type="Node3D" parent="." unique_id=1182736180]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025126114, 0.0073890314, 0)
@@ -139,6 +146,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08188928, 0.03927633, 0)
 _enemy_hitbox_layer = 16
 
 [node name="HealthModule" parent="." unique_id=1785219419 instance=ExtResource("8_4pcbe")]
+_initial_health = 10.0
 
 [node name="HitboxModule" parent="." unique_id=731163395 instance=ExtResource("4_8v6aa")]
 collision_layer = 8

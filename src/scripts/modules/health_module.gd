@@ -7,7 +7,12 @@ signal healed(health_module)
 signal health_changed(health_module)
 
 @export var _max_health := 100.0
+@export var _initial_health := 0.0
 @export var _invincible := false
+
+@export var _low_health_threshold := 0.0
+
+@export_range(0.0, 1.0, 0.001) var _low_health_threshold_normalized := 0.2
 
 var _current_health := 100.0
 var _is_dead := false
@@ -24,7 +29,7 @@ static func _name() -> String:
 
 func _ready() -> void:
 	super._ready()
-	_current_health = _max_health
+	_current_health = _initial_health if _initial_health > 0 else _max_health
 
 
 func take_hit(hit: Attack.Hit) -> void:
@@ -74,3 +79,11 @@ func get_max_health() -> float:
 
 func get_current_health() -> float:
 	return _current_health
+
+
+func is_on_low_health() -> bool:
+	return (
+		_current_health <= _low_health_threshold
+		if _low_health_threshold > 0
+		else _current_health <= _low_health_threshold_normalized * _max_health
+	)

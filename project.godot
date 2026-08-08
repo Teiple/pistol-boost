@@ -38,6 +38,13 @@ gdscript/warnings/unsafe_call_argument=1
 settings/addon_root_folder="res://addons/debug_draw_3d"
 settings/3d/volumetric_defaults/thickness=0.0
 
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=576
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
@@ -98,6 +105,7 @@ secondary_fire={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+common/physics_interpolation=true
 
 [rendering]
 

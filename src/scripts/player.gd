@@ -5,6 +5,7 @@ signal shot_fired(player: Player)
 
 @export var _max_speed := 20.0
 @export var _max_turn_speed := 25.0
+@export var _last_hit_force := 2.0
 @export var _recoil_turn_speed_recovery_curve: Curve = Curve.new()
 @export var _recoil_turn_speed_recovery_time := 0.3
 @export var _collision_shapes: Array[CollisionShape3D] = []
@@ -35,8 +36,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var player_plane_pos := global_position * Vector3(1, 1, 0)
-
-	_follow_cam.global_position = global_position + _initial_cam_offset
 
 	var mouse_pos := get_tree().root.get_mouse_position()
 	var project_from := _follow_cam.project_ray_origin(mouse_pos)
@@ -69,10 +68,6 @@ func _physics_process(_delta: float) -> void:
 	# speed cap
 	if linear_velocity.length_squared() > _max_speed * _max_speed:
 		linear_velocity = linear_velocity.normalized() * _max_speed
-
-
-func get_follow_cam() -> Camera3D:
-	return _follow_cam
 
 
 func is_on_floor() -> bool:
@@ -134,6 +129,11 @@ func _on_damage_taken(health: HealthModule):
 		apply_impulse(atk.direction * atk.impact_force)
 
 
-func _on_died(_health_module: HealthModule):
+func _on_died(health_module: HealthModule):
+	# add dramatic directional last hit impact
+	var atk := health_module.get_last_hit()
+	Assert.not_null(atk)
+	apply_impulse(atk.direction * _last_hit_force)
+
 	set_physics_process(false)
 	set_process(false)

@@ -9,6 +9,9 @@
 script = ExtResource("1_igw5u")
 _bar = NodePath("Bar")
 _current_health_label = NodePath("Bar/HealthLabel")
+_flicker_on_low_health = true
+_flicker_min_alpha = 0.7
+_flicker_frequency = 8.0
 
 [node name="Bar" type="TextureProgressBar" parent="." unique_id=2026065882]
 anchors_preset = 8
